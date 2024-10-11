@@ -4,10 +4,10 @@
 
 ### Q1
 
-Um esquema de encriptação é considerado correto se, partindo de E'(k, m), se consegue chegar a E(k, m).
+Um esquema de encriptação é considerado correto se, partindo de E'(k, m), se consegue chegar a E(k, m). (->será E, D e recuperar a mensagem)
 
 1. **reverse(E(k, m)):** reverse(reverse(E(k, m))) = E(k, m), reverse(reverse(x)) = x
-2. **E(0<sup>n</sup>, m):** E(k, m), k = 0<sup>n</sup>, é um caso particular de E(k, m) em que a chave é k = 0<sup>n</sup>
+2. **E(0<sup>n</sup>, m):** E(k, m), k = 0<sup>n</sup>, é um caso particular de E(k, m) em que a chave é k = 0<sup>n</sup> (VER)
 3. **E(k, m) || 0:** basta remover o 0 concatenado no final para se obter E(k, m)
 4. **E(k, m) XOR 1<sup>n</sup>:** E(k, m) XOR 1<sup>n</sup> XOR 1<sup>n</sup> = E(k, m), porque x XOR x = 0
 5. **E(k, 0<sup>n</sup>):** é impossível voltar a obter a mensagem inicial, porque foi substituída por 0<sup>n</sup>
@@ -20,11 +20,15 @@ Os esquemas de encriptação corretos são: 1, 2, 3, 4 e 6.
 
 Considerando que o esquema de encriptação (E, D) é semanticamente seguro, partindo do princípio que não se usa a mesma chave mais do que uma vez, são seguros os esquemas de encriptação que permitam a utilização de chaves diferentes em encriptações diferentes, não obrigando a utilização da mesma chave sempre.
 
-1. **reverse(E(k, m)):** é seguro porque a chave é k
-2. **E(0<sup>n</sup>, m):** não é seguro porque a chave é obrigatoriamente 0<sup>n</sup>
-3. **E(k, m) || 0:** é seguro porque a chave é k
-4. **E(k, m) XOR 1<sup>n</sup>:** é seguro porque a chave é k
-6. **E(k, m) || m:** é seguro porque a chave é k
+1.**reverse(E(k, m)):** é seguro porque a chave é k
+
+2.**E(0<sup>n</sup>, m):** não é seguro porque a chave é obrigatoriamente 0<sup>n</sup>
+
+3.**E(k, m) || 0:** é seguro porque a chave é k
+
+4.**E(k, m) XOR 1<sup>n</sup>:** é seguro porque a chave é k
+
+6.**E(k, m) || m:** é seguro porque a chave é k (VER)
 
 Os esquemas de encriptação corretos e semanticamente seguros são: 1, 3, 4 e 6.
 
