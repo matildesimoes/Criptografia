@@ -24,25 +24,31 @@ Estas distribuições são uniformes, porque a probabilidade de cada número ser
 
 ### 3
 
-import math
-
-def compute_entropy(probabilities):
-    """
-    Compute the entropy given a list of probabilities.
-    
-    :param probabilities: List of probabilities for each event S'.
-    :return: Entropy value.
-    """
+```python	
+def compute_entropy_from_prob_and_counts(prob_dict):
+   
     entropy = 0.0
-    for prob in probabilities:
-        if prob > 0:  # To avoid log(0) which is undefined
-            entropy -= prob * math.log2(prob)
+    
+    for prob, count in prob_dict.items():
+        for _ in range(count):
+            entropy -= prob * log(prob,2)
+    
     return entropy
 
-# Example usage:
-probabilities = []  # Example probabilities
-entropy_value = compute_entropy(probabilities)
+# exercício 1
+result1 = 2/256
+result2 = 1/256
+prob_dict = {result1: 5, result2: 246}
+
+# exercício 2
+result1 = int(2**64 / 251 + 1) / 2**64
+result2 = int(2**64 / 251) / 2**64
+prob_dict = {result1: 69, result2: 182}
+
+
+entropy_value = compute_entropy_from_prob_and_counts(prob_dict)
 print(f"Entropy: {entropy_value}")
+```
 
 
 
