@@ -31,25 +31,106 @@ def compute_entropy_from_prob_and_counts(prob_dict):
     
     for prob, count in prob_dict.items():
         for _ in range(count):
-            entropy -= prob * log(prob,2)
+            if prob > 0:
+                entropy -= prob * math.log2(prob)
     
     return entropy
 
 # exercício 1
 result1 = 2/256
 result2 = 1/256
-prob_dict = {result1: 5, result2: 246}
+prob_dict1 = {result1: 5, result2: 246}
 
 # exercício 2
-result1 = int(2**64 / 251 + 1) / 2**64
-result2 = int(2**64 / 251) / 2**64
-prob_dict = {result1: 69, result2: 182}
+result3 = int(2**64 / 251 + 1) / 2**64
+result4 = int(2**64 / 251) / 2**64
+prob_dict2 = {result3: 69, result4: 182}
 
+entropy_value1 = compute_entropy_from_prob_and_counts(prob_dict1)
+entropy_value2 = compute_entropy_from_prob_and_counts(prob_dict2)
 
-entropy_value = compute_entropy_from_prob_and_counts(prob_dict)
-print(f"Entropy: {entropy_value}")
+print(f"Entropia da distribuição 1: {entropy_value1}")
+print(f"Entropia distribuição 2: {entropy_value2}")
+```
+Entropia da distribuição 1: 7.96093750000000
+Entropia da distribuição 2: 7.97154355395077
+
+```python	
+def compute_entropy_from_prob_and_counts(prob_dict):
+   
+    entropy = 0.0
+    
+    for prob, count in prob_dict.items():
+        for _ in range(count):
+            if prob > 0:
+                entropy -= prob * math.log2(prob)
+    
+    return entropy
+
+# uniforme distribuição de S
+result1 = 1 / 2
+prob_dict2 = {result1: 2}
+
+entropy_value1 = compute_entropy_from_prob_and_counts(prob_dict2)
+
+print(f"Entropia da distribuição 1: {entropy_value1}")
+```
+Entropia da distribuição 1: 7.96093750000000
+
+### 4
+
+```python	
+def compute_entropy_uniform(prob_dict):
+   
+    entropy = 0.0
+    
+    for prob, count in prob_dict.items():
+        for _ in range(count):
+            if prob > 0:
+                entropy -= prob * math.log2(prob)
+    
+    return entropy
+
+for k in range(1, 100):
+
+    result1 = 2**k mod 251
+    result2 = 2**k - result1
+    prob_dict2 = {result1: 2**k // 251 + 1, result2: (2**k // 251) // 2**k}
+
+    entropy = compute_entropy_uniform(prob_dict2)
+
+    print(f"Entropia uniforme para k={k}: {entropy:.5f}")
+```
+k=8
+
+### 5
+
+O comando usa o hexdump para extrair e formatar dados aleatórios do dispositivo /dev/urandom, que é uma fonte de dados pseudo-aleatórios em sistemas Unix.
+
+```bash
+$ hexdump -n 32 -e '1/4 "%0X" 1 "\n"' /dev/urandom
 ```
 
+**-n 32**:
 
+Este parâmetro limita em 32 bytes o número de bytes que o hexdump lê do /dev/urandom. Sem esta opção, o hexdump iria continuar a ler do /dev/urandom.
 
+**-e '1/4 "%0X" 1 "\n"'**:
 
+A opção -e específica a string de formatação para o output, ou seja, dita a forma como ao hexdump vai mostrar os dados. Isso significa que o hexdump deve processar 4 bytes (32 bits) de cada vezes.
+
+**"%0X"**: 
+
+Especifica como formatar os 4 bytes. O formato "%0X" imprime o pedaço como um número hexadecimal em maiúsculas, sem espaços à frente. 0X garante o preenchimento com zeros, de modo que cada pedaço seja impresso como 8 caracteres hexadecimais (32 bits).
+1 "\n": Isso especifica que, após processar cada objeto, uma nova linha (\n) deve ser impressa. Isso garante que cada valor hexadecimal de 4 bytes seja impresso em uma nova linha.
+
+**/dev/urandom**:
+
+O /dev/urandom é um arquivo especial que fornece um fluxo infinito de bytes pseudo-aleatórios. Ele é normalmente usado para fins criptográficos, embora seja considerado menos seguro que o /dev/random quando a entropia é baixa.
+Saída:
+O comando irá:
+
+Ler 32 bytes de dados aleatórios do /dev/urandom.
+Interpretar esses bytes como oito pedaços de 4 bytes (32 bytes / 4 bytes por pedaço = 8 pedaços).
+Converter cada pedaço de 4 bytes em uma string hexadecimal de 8 caracteres.
+Imprimir cada string hexadecimal em uma nova linha.
