@@ -1,13 +1,13 @@
 # Week #1 Extra
 
-## Q1: Semantically secure schemes
+## Q1: *Semantically secure schemes*
 
 ### Q1
 
-Um esquema de encriptação é considerado correto se, partindo de E'(k, m), se consegue chegar a E(k, m). (->será E, D e recuperar a mensagem)
+Um esquema de encriptação é considerado correto se permite recuperar a mensagem ou se, por redução, partindo de E'(k, m), se consegue chegar a E(k, m).
 
 1. **reverse(E(k, m)):** reverse(reverse(E(k, m))) = E(k, m), reverse(reverse(x)) = x
-2. **E(0<sup>n</sup>, m):** E(k, m), k = 0<sup>n</sup>, é um caso particular de E(k, m) em que a chave é k = 0<sup>n</sup> (VER)
+2. **E(0<sup>n</sup>, m):** E(k, m), k = 0<sup>n</sup>, é um caso particular de E(k, m) em que a chave é k = 0<sup>n</sup>
 3. **E(k, m) || 0:** basta remover o 0 concatenado no final para se obter E(k, m)
 4. **E(k, m) XOR 1<sup>n</sup>:** E(k, m) XOR 1<sup>n</sup> XOR 1<sup>n</sup> = E(k, m), porque x XOR x = 0
 5. **E(k, 0<sup>n</sup>):** é impossível voltar a obter a mensagem inicial, porque foi substituída por 0<sup>n</sup>
@@ -18,19 +18,21 @@ Os esquemas de encriptação corretos são: 1, 2, 3, 4 e 6.
 
 ### Q2
 
-Considerando que o esquema de encriptação (E, D) é semanticamente seguro, partindo do princípio que não se usa a mesma chave mais do que uma vez, são seguros os esquemas de encriptação que permitam a utilização de chaves diferentes em encriptações diferentes, não obrigando a utilização da mesma chave sempre.
+Um esquema de encriptação é considerado semanticamente seguro se o texto cifrado não revela nada sobre a mensagem original.
 
-1.**reverse(E(k, m)):** é seguro porque a chave é k
+Ora, considerando que o esquema de encriptação (E, D) é semanticamente seguro, partindo do princípio que não se usa a mesma chave mais do que uma vez, são seguros os esquemas de encriptação derivados de (E, D) que permitam a utilização de chaves diferentes em encriptações diferentes - não obrigando à utilização da mesma chave sempre - e cujo texto cifrado não revela nada sobre a mensagem original.
+
+1.**reverse(E(k, m)):** é seguro porque a chave é k, é derivado de E(k, m) e o texto cifrado não revela nada sobre a mensagem original
 
 2.**E(0<sup>n</sup>, m):** não é seguro porque a chave é obrigatoriamente 0<sup>n</sup>
 
-3.**E(k, m) || 0:** é seguro porque a chave é k
+3.**E(k, m) || 0:** é seguro porque a chave é k, é derivado de E(k, m) e o texto cifrado não revela nada sobre a mensagem original
 
-4.**E(k, m) XOR 1<sup>n</sup>:** é seguro porque a chave é k
+4.**E(k, m) XOR 1<sup>n</sup>:** é seguro porque a chave é k, é derivado de E(k, m) e o texto cifrado não revela nada sobre a mensagem original
 
-6.**E(k, m) || m:** é seguro porque a chave é k (VER)
+6.**E(k, m) || m:** não é seguro porque, apesar de a chave ser k e de ser derivado de E(k, m), como |E(k, m)| = |m| = n e |E(k, m) || m| = 2n, basta dividir E(k, m) || m a meio, obtendo-se E(k, m) do lado esquerdo e m do lado direito, pelo que um atacante consegue obter a mensagem sem precisar de utilizar a chave, contrariando o pressuposto de que o texto cifrado não revela nada sobre a mensagem original - revela toda a mensagem original
 
-Os esquemas de encriptação corretos e semanticamente seguros são: 1, 3, 4 e 6.
+Os esquemas de encriptação corretos e semanticamente seguros são: 1, 3 e 4.
 
 ### Q3
 
@@ -38,7 +40,7 @@ Os esquemas de encriptação corretos e semanticamente seguros são: 1, 3, 4 e 6
 
 O atacante sabe o esquema de encriptação que vai ser utilizado e envia duas mensagens de comprimento n. A partir desse momento, como sabe o esquema de encriptaçáo, o atacante fica a saber também que a chave utilizada pelo *challenger* será 0<sup>n</sup>, sendo n conhecido, porque foi definido pelo atacante. Assim, quando o atacante receber a mensagem cifrada c, conseguirá decifrá-la porque sabe a chave e o esquema de encriptaçao (E, D). Deste modo, o atacante consegue saber a mensagem que foi encriptada com probabilidade 1, quebrando o modelo de segurança.
 
-## Q2: Shifting the alphabet
+## Q2: *Shifting the alphabet*
 
 Pretende-se provar que o esquema de encriptação E é perfeitamente seguro.
 
@@ -56,7 +58,7 @@ Na verdade, como a distrubuição aleatória é uniforme, a probabilidade de o a
 
 Por isso, está provado que o esquema de encriptação E é perfeitamente seguro.
 
-## Q3: Secret Sharing
+## Q3: *Secret Sharing*
 
 ### P1
 
