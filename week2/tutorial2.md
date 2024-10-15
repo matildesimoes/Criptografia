@@ -12,7 +12,7 @@ Assim, a probabilidade de D gerar os números inteiros de 0 a 4 é 2/256, enquan
 
 2<sup>64</sup> mod 251 = 69, o que significa que cada um dos números inteiros de 0 a 68 vai ser reproduzido 2<sup>64</sup> // 251 + 1 vezes, enquanto cada um dos números inteiros de 69 a 250 vai ser reproduzido 2<sup>64</sup> // 251 vezes, sendo `//` a divisão inteira.
 
-Assim, a probabilidade de D gerar os números inteiros de 0 a 68 é (2<sup>64</sup> // 251 + 1) // 2<sup>64</sup>, enquanto a probabilidade de D gerar os números inteiros de 69 a 250 é (2<sup>64</sup> // 251) // 2<sup>64</sup>.
+Assim, a probabilidade de D gerar os números inteiros de 0 a 68 é (2<sup>64</sup> // 251 + 1) / 2<sup>64</sup>, enquanto a probabilidade de D gerar os números inteiros de 69 a 250 é (2<sup>64</sup> // 251) / 2<sup>64</sup>.
 
 ### Estas distribuições são uniformes?
 
