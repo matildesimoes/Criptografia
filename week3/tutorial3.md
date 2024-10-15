@@ -49,7 +49,7 @@ def decrypt(filename, cipher, padding):
     print("The decrypted file was saved to: 'dec_", filename, "'", sep = "")
 ```
 
-![1.png](/week3/images/1.png)
+![1](/week3/images/1.png)
 
 ## 2
 
@@ -69,9 +69,13 @@ openssl enc -aes-256-cbc -d -in enc_file.txt -out dec_file.txt -pass pass:passwo
 
 Este comando recebe como *input* o ficheiro `enc_file.txt`, desencripta-o usando o algoritmo AES no modo CBC (usando uma chave de 256 *bits*) e armazena o resultado no ficheiro `dec_file.txt`. A chave e o vetor de inicialização são derivados da palavra-passe (`password`) usando a função de derivação de chave `PBKDF2` (*Password-Based Key Derivation Function 2*).
 
-![2.png](/week3/images/2.png)
+![2](/week3/images/2.png)
 
 ## 3
+
+Editou-se o ficheiro `file.txt` - alterando o último *byte* (`0x0a`) para `0x33` - e guardou-se o *output* no ficheiro `file3.txt`.
+
+![3](/week3/images/3.png)
 
 ### 3.1
 
@@ -82,6 +86,10 @@ Este comando recebe como *input* o ficheiro `enc_file.txt`, desencripta-o usando
 ### 3.4
 
 ## 4
+
+Editou-se o ficheiro `file.txt` - alterando o último *byte* (`0x0a`) para `0x44` - e guardou-se o *output* no ficheiro `file4.txt`.
+
+![4](/week3/images/4.png)
 
 ### 4.1
 
