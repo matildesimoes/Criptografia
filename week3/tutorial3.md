@@ -73,7 +73,7 @@ Este comando recebe como *input* o ficheiro `enc_file.txt`, desencripta-o usando
 
 ## 3
 
-Editou-se o ficheiro `file.txt` - alterando o último *byte* (`0x0a`) para `0x33` - e guardou-se o *output* no ficheiro `file3.txt`.
+Editou-se o ficheiro `enc_file.txt` - alterando o último *byte* (`0x4d`) para `0x33` - e guardou-se o *output* no ficheiro `enc_file3.txt`.
 
 ![3](/week3/images/3.png)
 
@@ -87,7 +87,7 @@ Editou-se o ficheiro `file.txt` - alterando o último *byte* (`0x0a`) para `0x33
 
 ## 4
 
-Editou-se o ficheiro `file.txt` - alterando o último *byte* (`0x0a`) para `0x44` - e guardou-se o *output* no ficheiro `file4.txt`.
+Editou-se o ficheiro `enc_file.txt` - alterando o último *byte* (`0x4d`) para `0x44` - e guardou-se o *output* no ficheiro `enc_file4.txt`.
 
 ![4](/week3/images/4.png)
 
