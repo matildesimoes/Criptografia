@@ -278,8 +278,6 @@ O **ChaCha20** é um algoritmo de *Stream Cipher* que gera um fluxo de bytes pse
 
 ### 5
 
-### Pergunta 5:
-
 1. **RC4:**
    - **Tipo de Cifra:** RC4 é uma *stream cipher*.
    - **Tamanho do Texto Cifrado:** O tamanho do texto cifrado é **igual** ao tamanho do texto original. Não há sobrecarga adicional, já que RC4 aplica uma operação XOR byte a byte sem necessidade de adicionar padding.
