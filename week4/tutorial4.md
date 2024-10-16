@@ -187,3 +187,15 @@ p3 é irreducível: False
 No contexto dos LFSRs, a irreducibilidade é uma condição necessária (mas não suficiente) para o polinómio ser primitivo. Isso significa que polinómios irreducíveis têm maior probabilidade de produzir uma sequência longa e não repetitiva, uma vez que não podem ser decompostos em ciclos menores.
 
 Se um polinómio não for irreducível, ele pode ser decomposto em polinómios menores. Para LFSRs, isso significa que a sequência gerada não terá o período máximo e pode repetir-se prematuramente ou gerar ciclos mais curtos. Por exemplo, x<sup>4</sup> + x<sup>3</sup> + x<sup>2</sup> + 1 não é irreducível, o que significa que não produzirá uma sequência de período máximo, como já foi provado anteriormente.
+
+### 2
+
+O código que utilizamos foi retirado deste link **https://github.com/manojpandey/rc4/blob/master/rc4-3.py** e foi modificado para aceitar um ficheiro de texto como input e para criar um ficheiro de texto como output **ciphertext.txt**. Também retira o ficheiro de texto cifrado da execução anterior, retornando no terminal o texto original para verificar que a encriptação e desencriptação foram bem sucedidas.
+
+O código final encontra-se no ficheiro **rc4.py** e deve ser testado com o ficheiro **plaintext.txt**.
+
+Abaixo, podemos observar um exemplo de utilização.
+
+![2](images/2.png)
+
+### 3
