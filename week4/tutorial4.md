@@ -42,7 +42,7 @@ Output = 0
 R7 = 010
 ```
 
-O período do LFSR iniciado com R0 = 010 é 7, o que significa que a sequência gerada se repete após 7 shifts. Como o polinómio tem grau 3, o período máximo possível é 2<sup>3</sup> - 1 = 7.
+O período do LFSR iniciado com R0 = 010 é 7, o que significa que a sequência gerada se repete após 7 *shifts*. Como o polinómio tem grau 3, o período máximo possível é 2<sup>3</sup> - 1 = 7.
 
 Dado que o LFSR alcança este período máximo, podemos concluir que o polinómio x<sup>3</sup> + x + 1 é primitivo, ou seja, gera a sequência máxima para o seu grau.
 
@@ -112,7 +112,7 @@ Output = 0
 R15 = 0100
 ```
 
-O período do LFSR iniciado com R0 = 0100 é 15, o que significa que a sequência gerada se repete após 15 shifts. Como o polinómio tem grau 4, o período máximo possível é 2<sup>4</sup> - 1 = 15.
+O período do LFSR iniciado com R0 = 0100 é 15, o que significa que a sequência gerada se repete após 15 *shifts*. Como o polinómio tem grau 4, o período máximo possível é 2<sup>4</sup> - 1 = 15.
 
 Dado que o LFSR alcança este período máximo, podemos concluir que o polinómio x<sup>4</sup> + x + 1 é primitivo, ou seja, gera a sequência máxima para o seu grau.
 
@@ -150,7 +150,7 @@ Output = 0
 R7 = 0110
 ```
 
-O período do LFSR iniciado com R0 = 0110 é 7, o que significa que a sequência gerada se repete após 7 shifts. Como o polinómio tem grau 4, o período máximo possível é 2<sup>4</sup> - 1 = 15.
+O período do LFSR iniciado com R0 = 0110 é 7, o que significa que a sequência gerada se repete após 7 *shifts*. Como o polinómio tem grau 4, o período máximo possível é 2<sup>4</sup> - 1 = 15.
 
 Dado que o LFSR não alcança o período máximo, podemos concluir que o polinómio x<sup>4</sup> + x<sup>3</sup> + x<sup>2</sup> + 1 não é primitivo, ou seja, não gera a sequência máxima para o seu grau.
 
@@ -199,3 +199,31 @@ Abaixo, podemos observar um exemplo de utilização.
 ![2](images/2.png)
 
 ### 3
+
+O algoritmo RC4 do exercício anterior não é diretamente compatível com a implementação do OpenSSL sem algumas adaptações. OpenSSL suporta RC4, mas utiliza seu próprio formato de entrada e saída para encriptar e desencriptar.
+
+Aqui estão alguns pontos a considerar quando se trata da compatibilidade com o OpenSSL:
+
+1. **Formato de Entrada/Saída**: 
+   - O código do exercício anterior recebe como input um ficheiro de texto e encripta o seu conteúdo, convertendo-o para hexadecimal. O OpenSSL, por padrão, opera com ficheiros binários e depende das chaves fornecidas como parâmetros na linha de comando.
+   - Para compatibilizar com o OpenSSL, é necessário garantir que os dados encriptados e desencriptados estejam no formato esperado, ou seja, em binário.
+
+2. **Gestão da Chave**:
+   - O código do exercício anterior transforma a chave numa lista de inteiros (usando o `ord()`), o que faz sentido para a implementação realizada, mas em OpenSSL, a chave deve ser fornecida como um valor hexadecimal ou binário. Isso pode exigir alterações no formato da chave.
+
+3. **Modo de Operação**:
+   - OpenSSL usa uma abordagem mais padronizada para executar algoritmos de criptografia de chaves simétricas, como é o caso do RC4, com suporte a IVs e diferentes modos de operação. O código anterior, por outro lado, implementa o PRGA (Pseudo-Random Generation Algorithm) manualmente, enquanto o OpenSSL foca-se na criptografia em si, não sendo necessário implementar o PRGA.
+
+4. **Testar o RC4 no OpenSSL em versões abaixo da 3.0**:
+   - OpenSSL permite o uso de RC4 por linha de comando:
+     ```bash
+     openssl enc -rc4 -in plaintext.txt -out ciphertext.bin -K 6E6F742D736F2D72616E646F6D2D6B6579
+     ```
+     Onde o `-K` representa a chave, aqui convertida para hexadecimal.
+
+   - Para desencriptar o ficheiro cifrado, pode-se usar:
+     ```bash
+     openssl enc -rc4 -d -in ciphertext.bin -out decrypted.txt -K 6E6F742D736F2D72616E646F6D2D6B6579
+     ```
+
+O algoritmo RC4 implementado no exercício anterior pode ser adaptado para funcionar de forma compatível com o OpenSSL, mas exigiria mudanças, especialmente no tratamento dos ficheiros de input e output e da chave. O OpenSSL fornece uma implementação otimizada de RC4, e para que os resultados sejam compatíveis teremos que garantir que as chaves e o formato de entrada/saída estejam adequados.
