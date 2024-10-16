@@ -190,7 +190,7 @@ Se um polinómio não for irreducível, ele pode ser decomposto em polinómios m
 
 ### 2
 
-O código que utilizamos foi retirado deste link **https://github.com/manojpandey/rc4/blob/master/rc4-3.py** e foi modificado para aceitar um ficheiro de texto como input e para criar um ficheiro de texto como output **ciphertext.txt**. Também retira o ficheiro de texto cifrado da execução anterior, retornando no terminal o texto original para verificar que a encriptação e desencriptação foram bem sucedidas.
+O código que utilizamos foi retirado deste link **https://github.com/manojpandey/rc4/blob/master/rc4-3.py** e foi modificado para aceitar um ficheiro de texto como input e para criar um ficheiro de texto como output **ciphertext.txt**. Também retira o ficheiro de texto cifrado da execução anterior, retornando no terminal o texto original para verificar que a encriptação e a desencriptação foram bem sucedidas.
 
 O código final encontra-se no ficheiro **rc4.py** e deve ser testado com o ficheiro **plaintext.txt**.
 
@@ -227,3 +227,53 @@ Aqui estão alguns pontos a considerar quando se trata da compatibilidade com o 
      ```
 
 O algoritmo RC4 implementado no exercício anterior pode ser adaptado para funcionar de forma compatível com o OpenSSL, mas exigiria mudanças, especialmente no tratamento dos ficheiros de input e output e da chave. O OpenSSL fornece uma implementação otimizada de RC4, e para que os resultados sejam compatíveis teremos que garantir que as chaves e o formato de entrada/saída estejam adequados.
+
+### 4
+
+Para demonstrar que o **ChaCha20** gera o mesmo **ciphertext** ao encriptar o mesmo ficheiro utilizando a mesma chave e nonce (IV), vamos realizar os passos seguintes usando o **OpenSSL**.
+
+1. **Encriptar o ficheiro a primeira vez**:
+
+   ```bash
+   openssl enc -chacha20 -in plaintext.txt -out ciphertext1.bin -K 00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF -iv 00112233445566778899AABB
+   ```
+
+   - **Parâmetros**:
+     - `-chacha20`: Especifica o uso do algoritmo **ChaCha20**;
+     - `-in`: Define o ficheiro de texto a ser encriptado **plaintext.txt**;
+     - `-out`: Define o ficheiro de saída para onde vai o texto cifrado **ciphertext1.bin**.;
+     - `-K`: Define a chave hexadecimal de 256 bits (32 bytes);
+     - `-iv`: Define o nonce de 96 bits (12 bytes).
+
+2. **Repetir a encriptação com a mesma chave e nonce**:
+
+   ```bash
+   openssl enc -chacha20 -in plaintext.txt -out ciphertext2.bin -K 00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF -iv 00112233445566778899AABB
+   ```
+
+   - **Parâmetros**:
+     - `-chacha20`: Especifica o uso do algoritmo **ChaCha20**;
+     - `-in`: Define o ficheiro de texto a ser encriptado **plaintext.txt**;
+     - `-out`: Define o ficheiro de saída para onde vai o texto cifrado **ciphertext2.bin**.;
+     - `-K`: Define a chave hexadecimal de 256 bits (32 bytes) que é a mesma utilizada na encriptação anterior;
+     - `-iv`: Define o nonce de 96 bits (12 bytes) que é o mesmo utilizado na encriptação anterior.
+
+3. **Comparar os ficheiro com o texto cifrado**:
+
+   Como a mesma chave e nonce foram utilizados nas duas encriptações, os ficheiros `ciphertext1.bin` e `ciphertext2.bin` deverão ser idênticos. Para verificar isso, vamos utilizar o comando `diff`:
+
+   ```bash
+   diff ciphertext1.bin ciphertext2.bin
+   ```
+
+   Se os ficheiros forem iguais, o comando não dará output, confirmando que o **ChaCha20** gera o mesmo texto cifrado ao encriptar o mesmo ficheiro com a mesma chave e nonce.
+
+5. **Imagem da execução dos passos anteriores**:
+
+   ![4](images/4.png)
+
+O **ChaCha20** é um algoritmo de *Stream Cipher* que gera um fluxo de bytes pseudoaleatórios a partir de uma chave secreta e um nonce (valor único). Este fluxo é então combinado com o texto original através da operação XOR, resultando no texto cifrado. O uso do nonce garante que a mesma chave possa ser utilizada para encriptar múltiplos textos, sem comprometer a segurança.
+
+É **fundamental nunca reutilizar o nonce (IV) com a mesma chave**. A reutilização do nonce pode comprometer a segurança do sistema, facilitando que um atacante identifique padrões ou, em casos extremos, tenha a possibilidade de recuperar o texto original.
+
+### 5
