@@ -277,3 +277,28 @@ O **ChaCha20** é um algoritmo de *Stream Cipher* que gera um fluxo de bytes pse
 É **fundamental nunca reutilizar o nonce (IV) com a mesma chave**. A reutilização do nonce pode comprometer a segurança do sistema, facilitando que um atacante identifique padrões ou, em casos extremos, tenha a possibilidade de recuperar o texto original.
 
 ### 5
+
+### Pergunta 5:
+
+1. **RC4:**
+   - **Tipo de Cifra:** RC4 é uma *stream cipher*.
+   - **Tamanho do Texto Cifrado:** O tamanho do texto cifrado é **igual** ao tamanho do texto original. Não há sobrecarga adicional, já que RC4 aplica uma operação XOR byte a byte sem necessidade de adicionar padding.
+
+2. **ChaCha20:**
+   - **Tipo de Cifra:** ChaCha20 também é uma *stream cipher* moderna e segura.
+   - **Tamanho do Texto Cifrado:** Similar ao RC4, o texto cifrado possui o **mesmo tamanho** do texto original. ChaCha20 processa os dados em blocos de 64 bytes, mas não adiciona padding ao texto cifrado.
+
+3. **Comparação com AES-CTR e AES-CBC:**
+   - **AES-CTR (Counter Mode):**
+     - **Tipo de Cifra:** O modo de operação é uma cifra de bloco que transforma o AES numa *stream cipher*.
+     - **Tamanho do Texto Cifrado:** O texto cifrado tem o **mesmo tamanho** do texto original, semelhante ao RC4 e ao ChaCha20. Não há necessidade de padding, pois o AES-CTR também utiliza uma operação de XOR com um fluxo de chave que é gerado a partir de um contador.
+
+   - **AES-CBC (Cipher Block Chaining):**
+     - **Tipo de Cifra:** Modo de operação de cifra de bloco que requer que o texto original seja dividido em blocos de tamanho fixo.
+     - **Tamanho do Texto Cifrado:** O texto cifrado geralmente é **maior** que o texto original devido à necessidade de adicionar **padding** para completar o último bloco se o texto original não for múltiplo do tamanho do bloco. Isso adiciona bytes extras, aumentando o tamanho total do texto cifrado.
+
+Cifras **RC4**, **ChaCha20** e **AES-CTR** mantêm o tamanho do texto cifrado igual ao do texto original, proporcionando eficiência em termos de espaço e adequação para dados de tamanho variável.
+
+Cifras de bloco no modo **AES-CBC** podem aumentar o tamanho do texto cifrado devido ao padding necessário, o que pode ser uma desvantagem em termos de eficiência de armazenamento.
+
+Em resumo, ao comparar **RC4** e **ChaCha20** com **AES-CTR** e **AES-CBC**, observamos que os modos de fluxo (**RC4**, **ChaCha20** e **AES-CTR**) são mais eficientes quando se fala no tamanho do texto cifrado, mantendo-o igual ao do texto original, enquanto modos de bloco como **AES-CBC** podem introduzir sobrecarga devido ao padding.
