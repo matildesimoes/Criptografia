@@ -13,32 +13,32 @@ Polinómio 3: x<sup>4</sup> + x<sup>3</sup> + x<sup>2</sup> + 1
 R0: 010
 
 ```
-f(R0) = S3 + S1 = 0 + 0 
+f(R0) = S3 + S1 = 0 + 0 = 0
 Output = 0
 R1 = 100
 
-f(R1) = S3 + S1 = 1 + 0
+f(R1) = S3 + S1 = 1 + 0 = 1
 Output = 1
 R2 = 001
 
-f(R2) = S3 + S1 = 0 + 1
-Output = 1
+f(R2) = S3 + S1 = 0 + 1 = 1
+Output = 0
 R3 = 011
 
-f(R3) = S3 + S1 = 0 + 1
-Output = 1
+f(R3) = S3 + S1 = 0 + 1 = 1
+Output = 0
 R4 = 111
 
-f(R4) = S3 + S1 = 1 + 1
-Output = 0
+f(R4) = S3 + S1 = 1 + 1 = 0
+Output = 1
 R5 = 110
 
-f(R5) = S3 + S1 = 1 + 0
+f(R5) = S3 + S1 = 1 + 0 = 1
 Output = 1
 R6 = 101
 
-f(R6) = S3 + S1 = 1 + 1
-Output = 0
+f(R6) = S3 + S1 = 1 + 1 = 0
+Output = 1
 R7 = 010
 ```
 
@@ -51,63 +51,63 @@ Dado que o LFSR alcança este período máximo, podemos concluir que o polinómi
 R0: 0100
 
 ```
-f(R0) = S4 + S1 = 0 + 0
+f(R0) = S4 + S1 = 0 + 0 = 0
 Output = 0
 R1 = 1000
 
-f(R1) = S4 + S1 = 1 + 0
+f(R1) = S4 + S1 = 1 + 0 = 1
 Output = 1
 R2 = 0001
 
-f(R2) = S4 + S1 = 0 + 1
-Output = 1
+f(R2) = S4 + S1 = 0 + 1 = 1
+Output = 0
 R3 = 0011
 
-f(R3) = S4 + S1 = 0 + 1
-Output = 1
+f(R3) = S4 + S1 = 0 + 1 = 1
+Output = 0
 R4 = 0111
 
-f(R4) = S4 + S1 = 0 + 1
-Output = 1
+f(R4) = S4 + S1 = 0 + 1 = 1
+Output = 0
 R5 = 1111
 
-f(R5) = S4 + S1 = 1 + 1
-Output = 0
+f(R5) = S4 + S1 = 1 + 1 = 0
+Output = 1
 R6 = 1110
 
-f(R6) = S4 + S1 = 1 + 0
+f(R6) = S4 + S1 = 1 + 0 = 1
 Output = 1
 R7 = 1101
 
-f(R7) = S4 + S1 = 1 + 1
-Output = 0
+f(R7) = S4 + S1 = 1 + 1 = 0
+Output = 1
 R8 = 1010
 
-f(R8) = S4 + S1 = 1 + 0 
+f(R8) = S4 + S1 = 1 + 0 = 1
 Output = 1
 R9 = 0101
 
-f(R9) = S4 + S1 = 0 + 1
-Output = 1
+f(R9) = S4 + S1 = 0 + 1 = 1
+Output = 0
 R10 = 1011
 
-f(R10) = S4 + S1 = 1 + 1
-Output = 0
+f(R10) = S4 + S1 = 1 + 1 = 0
+Output = 1
 R11 = 0110
 
-f(R11) = S4 + S1 = 0 + 0
+f(R11) = S4 + S1 = 0 + 0 = 0
 Output = 0
 R12 = 1100
 
-f(R12) = S4 + S1 = 1 + 0
+f(R12) = S4 + S1 = 1 + 0 = 1
 Output = 1
 R13 = 1001
 
-f(R13) = S4 + S1 = 1 + 1
-Output = 0
+f(R13) = S4 + S1 = 1 + 1 = 0
+Output = 1
 R14 = 0010
 
-f(R14) = S4 + S1 = 0 + 0
+f(R14) = S4 + S1 = 0 + 0 = 0
 Output = 0
 R15 = 0100
 ```
@@ -121,32 +121,32 @@ Dado que o LFSR alcança este período máximo, podemos concluir que o polinómi
 R0: 0110
 
 ```
-f(R0) = S4 + S3 + S2 = 0 + 1 + 1
+f(R0) = S4 + S3 + S2 = 0 + 1 + 1 = 0
 Output = 0
 R1 = 1100
 
-f(R1) = S4 + S3 + S2 = 1 + 1 + 0
-Output = 0
+f(R1) = S4 + S3 + S2 = 1 + 1 + 0 = 0
+Output = 1
 R2 = 1000
 
-f(R2) = S4 + S3 + S2 = 1 + 0 + 0
+f(R2) = S4 + S3 + S2 = 1 + 0 + 0 = 1
 Output = 1
 R3 = 0001
 
-f(R3) = S4 + S3 + S2 = 0 + 0 + 0
+f(R3) = S4 + S3 + S2 = 0 + 0 + 0 = 0
 Output = 0
 R4 = 0010
 
-f(R4) = S4 + S3 + S2 = 0 + 0 + 1
-Output = 1
+f(R4) = S4 + S3 + S2 = 0 + 0 + 1 = 1
+Output = 0
 R5 = 0101
 
-f(R5) = S4 + S3 + S2 = 0 + 1 + 0
-Output = 1
+f(R5) = S4 + S3 + S2 = 0 + 1 + 0 = 1
+Output = 0
 R6 = 1011
 
-f(R6) = S4 + S3 + S2 = 1 + 0 + 1
-Output = 0
+f(R6) = S4 + S3 + S2 = 1 + 0 + 1 = 0
+Output = 1
 R7 = 0110
 ```
 
@@ -169,15 +169,18 @@ Assim, embora ambos os polinómios sejam primitivos e garantam o período máxim
 ### 1.3
 
 ```python
-F.<x> = GF(2)[]
 
 p1 = x^3 + x + 1
 p2 = x^4 + x + 1
 p3 = x^4 + x^3 + x^2 + 1
+p4 = x*x + 1
+p5 = x + 1
 
 print("p1 é irreducível:", p1.is_irreducible())
 print("p2 é irreducível:", p2.is_irreducible())
 print("p3 é irreducível:", p3.is_irreducible())
+print("p4 é irreducível:", p4.is_irreducible())
+print("p5 é irreducível:", p5.is_irreducible())
 ```
 
 p1 é irreducível: True
