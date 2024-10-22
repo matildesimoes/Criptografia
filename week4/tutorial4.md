@@ -231,7 +231,7 @@ Para demonstrar que o **ChaCha20** gera o mesmo **ciphertext** ao encriptar o me
    openssl enc -chacha20 -in plaintext.txt -out ciphertext1.bin -K 00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF -iv 00112233445566778899AABB
    ```
 
-   - **Parâmetros**:
+   **Parâmetros**:
      - `-chacha20`: Especifica o uso do algoritmo **ChaCha20**;
      - `-in`: Define o ficheiro de texto a ser encriptado **plaintext.txt**;
      - `-out`: Define o ficheiro de saída para onde vai o texto cifrado **ciphertext1.bin**.;
@@ -244,7 +244,7 @@ Para demonstrar que o **ChaCha20** gera o mesmo **ciphertext** ao encriptar o me
    openssl enc -chacha20 -in plaintext.txt -out ciphertext2.bin -K 00112233445566778899AABBCCDDEEFF00112233445566778899AABBCCDDEEFF -iv 00112233445566778899AABB
    ```
 
-   - **Parâmetros**:
+   **Parâmetros**:
      - `-chacha20`: Especifica o uso do algoritmo **ChaCha20**;
      - `-in`: Define o ficheiro de texto a ser encriptado **plaintext.txt**;
      - `-out`: Define o ficheiro de saída para onde vai o texto cifrado **ciphertext2.bin**.;
