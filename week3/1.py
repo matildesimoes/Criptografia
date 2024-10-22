@@ -15,7 +15,7 @@ def CBC_PKCS7(filename, key, iv):
     decrypt(filename, cipher, padding)
 
 def encrypt(filename, cipher, padding):
-    with open(filename, 'rb') as file:
+    with open(filename, "rb") as file:
         data = file.read()
 
     padder = padding.padder()
@@ -24,13 +24,13 @@ def encrypt(filename, cipher, padding):
     encryptor = cipher.encryptor()
     ciphertext = encryptor.update(padded_data) + encryptor.finalize()
 
-    with open("enc_" + filename, 'wb') as file:
+    with open("enc_" + filename, "wb") as file:
         file.write(ciphertext)
 
     print("The encrypted file was saved to: 'enc_", filename, "'", sep = "")
 
 def decrypt(filename, cipher, padding):
-    with open("enc_" + filename, 'rb') as file:
+    with open("enc_" + filename, "rb") as file:
         ciphertext = file.read()
 
     decryptor = cipher.decryptor()
@@ -39,7 +39,7 @@ def decrypt(filename, cipher, padding):
     unpadder = padding.unpadder()
     plaintext = unpadder.update(padded_data) + unpadder.finalize()
 
-    with open("dec_" + filename, 'wb') as file:
+    with open("dec_" + filename, "wb") as file:
         file.write(plaintext)
 
     print("The decrypted file was saved to: 'dec_", filename, "'", sep = "")
