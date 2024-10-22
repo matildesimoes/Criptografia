@@ -1,10 +1,43 @@
 # Week #3 Extra
 
-### Q1
+## Q1: *Weak Security*
 
-#### P1
+### P1
 
-#### P2
+O código relevante encontra-se em `q1.py`, devidamente comentado.
+
+A chave gerada pelo ficheiro `ciphersuite_aesnotrand.py` tem, no máximo, 3 *bytes* (24 *bits*).
+Então, o espaço de chave é 2<sup>24</sup>, ou seja, existem 2<sup>24</sup> possibilidades para a chave.
+
+Como tal, o código desenvolvido lê o ficheiro com o texto encriptado e tenta desencriptá-lo com todas as possibilidades de chave até obter a mensagem original ("*Attack at Dawn!!*") e, quando conseguir, encontrou a chave.
+
+### P2
+
+Para descobrir chaves com *n bytes*, a nossa máquina demora os tempos expostos na tabela abaixo.
+
+| *n* (*bytes*) | tempo (*s*) |
+| ------- | ----------- |
+| 1 | 0,005 |
+| 2 | 1 |
+| 3 | 250 |
+
+Ou seja, o aumento de 1 *byte* no tamanho da chave parece levar a um tempo de execução cerca de 250 vezes superior.
+
+Um espaço de chave de *k* *bits* tem 2<sup>k</sup> possibilidades de chave.
+
+Efetivamente, *n bytes* correspondem a 8*n* *bits*, ou seja, existem 2<sup>8n</sup> possibilidades de chave.
+Assim, *n* + 1 *bytes* correspondem a 8(*n* + 1) = 8*n* + 8 *bits*, ou seja, existem 2<sup>8n + 8</sup> possibilidades de chave.
+
+Como tal, o aumento de 1 *byte* no tamanho da chave leva a mais 2<sup>8n + 8</sup>/2<sup>8n</sup> = 2<sup>8</sup> = 256 possibilidades de chave, daí o aumento do tempo de execução.
+
+Assim, o tempo de execução (em segundos) para descobrir uma chave de *n* *bytes* é aproximado pela progressão geométrica de termo inicial 0,005 e razão 256, ou seja, f(n) = 0,005 * 256<sup>n - 1</sup>.
+
+3 horas correspondem a 10800 segundos, pelo que responder à pergunta é resolver a equação f(n) = 10800 <=> 0,005 * 256<sup>n - 1</sup> = 10800 <=> n = 3,6 -> n = 4.
+
+Deste modo, conclui-se que aumentar o tamanho da chave para 4 *bytes* tornaria impossível descobrir a chave em menos de 3 horas.
+Na verdade, no pior caso, por força-bruta, uma chave de 4 *bytes* só consegue ser descoberta em cerca de 24 horas.
+
+Note-se que todos estes cálculos assumem o pior caso para a descoberta da chave, isto é, ter de testar por força-bruta todas as possibilidades do espaço de chave, mas, na prática, em média, o tempo de execução seria cerca de metade do pior caso teórico.
 
 ### Q2
 
