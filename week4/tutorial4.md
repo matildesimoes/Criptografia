@@ -156,15 +156,14 @@ Como o LFSR não atinge o período máximo, podemos concluir que o polinómio *x
 
 ### 1.2
 
-O polinómio ideal para um LFSR deve ser **primitivo**, o que significa que deve gerar o período máximo possível para o seu grau, garantindo que o LFSR passe por todos os estados não nulos antes de repetir a sequência. Tanto o polinómio x<sup>3</sup> + x + 1 quanto o polinómio x<sup>4</sup> + x + 1 são primitivos, o que significa que ambos atingem o período máximo para os seus respetivos graus (7 para o grau 3 e 15 para o grau 4).
+O polinómio ideal para um LFSR deve ser **primitivo**, o que significa que deve gerar o período máximo possível, garantindo que o LFSR passe por todos os estados não nulos antes de repetir a sequência. Tanto o polinómio x<sup>3</sup> + x + 1 quanto o polinómio x<sup>4</sup> + x + 1 são, com grande confiança, primitivos, o que significa que ambos atingem o período máximo para os seus respetivos graus (7 para o grau 3 e 15 para o grau 4).
 
-No entanto, o polinómio x<sup>3</sup> + x + 1 pode ser considerado o **melhor polinómio** para um LFSR nalguns casos.
+No entanto, o polinómio x<sup>4</sup> + x + 1 pode ser considerado o **melhor polinómio** para um LFSR.
+Isto porque os LFSR com maior período tendem a ser mais seguros.
 
-O grau de um polinómio influencia diretamente a complexidade da implementação do LFSR, especialmente em hardware. Como o polinómio x<sup>3</sup> + x + 1 tem um menor grau (3), exige menos registos e menos operações lógicas para calcular cada sequência do LFSR. Isso significa que consome menos recursos de hardware e é mais eficiente em termos de velocidade de execução.
+Embora o polinómio x<sup>3</sup> + x + 1 ofereça um período menor (7), para alguns casos, consegue ser suficiente para muitas aplicações de menor escala, pois o período de 7 oferece um bom equilíbrio entre o tamanho da sequência e a eficiência da implementação, exigindo menos registos e menos operações lógicas para calcular cada sequência do LFSR. 
 
-Embora o polinómio x<sup>4</sup> + x + 1 ofereça um período maior (15), o período de 7 gerado pelo polinómio x<sup>3</sup> + x + 1 é mais do que suficiente para muitas aplicações, como geração de padrões pseudoaleatórios, testes de hardware e até certas aplicações criptográficas de menor escala. Para muitas dessas aplicações, o período de 7 oferece um bom equilíbrio entre o tamanho da sequência e a eficiência da implementação.
-
-Assim, embora ambos os polinómios sejam primitivos e garantam o período máximo, o polinómio x<sup>3</sup> + x + 1 é frequentemente a **melhor escolha** devido à sua simplicidade, resultando numa implementação mais eficiente em termos de hardware e consumo de recursos. No entanto, a escolha do polinómio ideal depende das necessidades específicas da aplicação, como requisitos de período, complexidade, velocidade e consumo das operação.
+Assim, embora ambos os polinómios sejam primitivos e garantam o período máximo, o polinómio x<sup>4</sup> + x + 1 é frequentemente a **melhor escolha** devido ao seu maior período e à maior segurança que oferece.
 
 ### 1.3
 
@@ -175,18 +174,20 @@ p1 = x^3 + x + 1
 p2 = x^4 + x + 1
 p3 = x^4 + x^3 + x^2 + 1
 
-print("p1 é irreducível:", p1.is_irreducible())
-print("p2 é irreducível:", p2.is_irreducible())
-print("p3 é irreducível:", p3.is_irreducible())
+print("p1 é irredutível:", p1.is_irreducible())
+print("p2 é irredutível:", p2.is_irreducible())
+print("p3 é irredutível:", p3.is_irreducible())
 ```
 
-p1 é irreducível: True
-p2 é irreducível: True
-p3 é irreducível: False
+p1 é irredutível: True
 
-No contexto dos LFSRs, a irreducibilidade é uma condição necessária (mas não suficiente) para o polinómio ser primitivo. Isso significa que polinómios irreducíveis têm maior probabilidade de produzir uma sequência longa e não repetitiva, uma vez que não podem ser decompostos em ciclos menores.
+p2 é irredutível: True
 
-Se um polinómio não for irreducível, ele pode ser decomposto em polinómios menores. Para LFSRs, isso significa que a sequência gerada não terá o período máximo e pode repetir-se prematuramente ou gerar ciclos mais curtos. Por exemplo, x<sup>4</sup> + x<sup>3</sup> + x<sup>2</sup> + 1 não é irreducível, o que significa que não produzirá uma sequência de período máximo, como já foi provado anteriormente.
+p3 é irredutível: False
+
+No contexto dos LFSRs, a irredutibilidade é uma condição necessária (mas não suficiente) para o polinómio ser primitivo. Isso significa que polinómios irredutíveis têm maior probabilidade de produzir uma sequência longa e não repetitiva, uma vez que não podem ser decompostos em ciclos menores.
+
+Se um polinómio não for irredutível, ele pode ser decomposto em polinómios menores. Para LFSRs, isso significa que a sequência gerada não terá o período máximo e pode repetir-se prematuramente ou gerar ciclos mais curtos. Por exemplo, x<sup>4</sup> + x<sup>3</sup> + x<sup>2</sup> + 1 não é irredutível, o que significa que não produzirá uma sequência de período máximo, como já foi provado anteriormente.
 
 ### 2
 
@@ -200,22 +201,14 @@ Abaixo, podemos observar um exemplo de utilização.
 
 ### 3
 
-O algoritmo RC4 do exercício anterior não é diretamente compatível com a implementação do OpenSSL sem algumas adaptações. OpenSSL suporta RC4, mas utiliza seu próprio formato de entrada e saída para encriptar e desencriptar.
+O algoritmo RC4 do exercício anterior não é diretamente compatível com a implementação do OpenSSL sem algumas adaptações. OpenSSL suporta RC4, mas utiliza o seu próprio formato de entrada e saída para encriptar e desencriptar.
 
 Aqui estão alguns pontos a considerar quando se trata da compatibilidade com o OpenSSL:
 
-1. **Formato de Entrada/Saída**: 
-   - O código do exercício anterior recebe como input um ficheiro de texto e encripta o seu conteúdo, convertendo-o para hexadecimal. O OpenSSL, por padrão, opera com ficheiros binários e depende das chaves fornecidas como parâmetros na linha de comando.
-   - Para compatibilizar com o OpenSSL, é necessário garantir que os dados encriptados e desencriptados estejam no formato esperado, ou seja, em binário.
+O exercício anterior implementa uma encriptação para um ficheiro hexadecimal e pega nesse mesmo ficheiro para o desencriptar. O OpenSSL encripta texto para ficheiros binários e desencripta ficheiros binários para texto. A gestão da chave também é diferente, uma vez que o OpenSSL espera que a chave seja fornecida em formato hexadecimal ou binário.
 
-2. **Gestão da Chave**:
-   - O código do exercício anterior transforma a chave numa lista de inteiros (usando o `ord()`), o que faz sentido para a implementação realizada, mas em OpenSSL, a chave deve ser fornecida como um valor hexadecimal ou binário. Isso pode exigir alterações no formato da chave.
-
-3. **Modo de Operação**:
-   - OpenSSL usa uma abordagem mais padronizada para executar algoritmos de criptografia de chaves simétricas, como é o caso do RC4, com suporte a IVs e diferentes modos de operação. O código anterior, por outro lado, implementa o PRGA (Pseudo-Random Generation Algorithm) manualmente, enquanto o OpenSSL foca-se na criptografia em si, não sendo necessário implementar o PRGA.
-
-4. **Testar o RC4 no OpenSSL em versões abaixo da 3.0**:
-   - OpenSSL permite o uso de RC4 por linha de comando:
+**Testar o RC4 no OpenSSL em versões abaixo da 3.0**:
+   - OpenSSL permite o uso de RC4 por linha de comandos:
      ```bash
      openssl enc -rc4 -in plaintext.txt -out ciphertext.bin -K 6E6F742D736F2D72616E646F6D2D6B6579
      ```
@@ -226,7 +219,7 @@ Aqui estão alguns pontos a considerar quando se trata da compatibilidade com o 
      openssl enc -rc4 -d -in ciphertext.bin -out decrypted.txt -K 6E6F742D736F2D72616E646F6D2D6B6579
      ```
 
-O algoritmo RC4 implementado no exercício anterior pode ser adaptado para funcionar de forma compatível com o OpenSSL, mas exigiria mudanças, especialmente no tratamento dos ficheiros de input e output e da chave. O OpenSSL fornece uma implementação otimizada de RC4, e para que os resultados sejam compatíveis teremos que garantir que as chaves e o formato de entrada/saída estejam adequados.
+O algoritmo RC4 implementado no exercício anterior pode ser adaptado para funcionar de forma compatível com o OpenSSL, mas exigiria mudanças, especialmente no tratamento dos ficheiros de output e da chave. O OpenSSL fornece uma implementação otimizada de RC4, e para que os resultados sejam compatíveis teremos que garantir que as chaves e o formato de entrada/saída estejam adequados.
 
 ### 4
 
@@ -278,25 +271,24 @@ O **ChaCha20** é um algoritmo de *Stream Cipher* que gera um fluxo de bytes pse
 
 ### 5
 
-1. **RC4:**
+**RC4:**
    - **Tipo de Cifra:** RC4 é uma *stream cipher*.
    - **Tamanho do Texto Cifrado:** O tamanho do texto cifrado é **igual** ao tamanho do texto original. Não há sobrecarga adicional, já que RC4 aplica uma operação XOR byte a byte sem necessidade de adicionar padding.
 
-2. **ChaCha20:**
+**ChaCha20:**
    - **Tipo de Cifra:** ChaCha20 também é uma *stream cipher* moderna e segura.
-   - **Tamanho do Texto Cifrado:** Similar ao RC4, o texto cifrado possui o **mesmo tamanho** do texto original. ChaCha20 processa os dados em blocos de 64 bytes, mas não adiciona padding ao texto cifrado.
+   - **Tamanho do Texto Cifrado:** Similar ao RC4, o texto cifrado possui o **mesmo tamanho** do texto original.
 
-3. **Comparação com AES-CTR e AES-CBC:**
+**Comparação com AES-CTR e AES-CBC:**
    - **AES-CTR (Counter Mode):**
-     - **Tipo de Cifra:** O modo de operação é uma cifra de bloco que transforma o AES numa *stream cipher*.
-     - **Tamanho do Texto Cifrado:** O texto cifrado tem o **mesmo tamanho** do texto original, semelhante ao RC4 e ao ChaCha20. Não há necessidade de padding, pois o AES-CTR também utiliza uma operação de XOR com um fluxo de chave que é gerado a partir de um contador.
+     - **Tipo de Cifra:** O modo de operação é uma cifra de blocos que usa AES.
+     - **Tamanho do Texto Cifrado:** O texto cifrado tem o **mesmo tamanho** do texto original, semelhante ao RC4 e ao ChaCha20. Não há necessidade de padding.
 
    - **AES-CBC (Cipher Block Chaining):**
-     - **Tipo de Cifra:** Modo de operação de cifra de bloco que requer que o texto original seja dividido em blocos de tamanho fixo.
+     - **Tipo de Cifra:** Modo de operação de cifra de blocos que requer que o texto original seja dividido em blocos de tamanho fixo.
      - **Tamanho do Texto Cifrado:** O texto cifrado geralmente é **maior** que o texto original devido à necessidade de adicionar **padding** para completar o último bloco se o texto original não for múltiplo do tamanho do bloco. Isso adiciona bytes extras, aumentando o tamanho total do texto cifrado.
 
 Cifras **RC4**, **ChaCha20** e **AES-CTR** mantêm o tamanho do texto cifrado igual ao do texto original, proporcionando eficiência em termos de espaço e adequação para dados de tamanho variável.
 
 Cifras de bloco no modo **AES-CBC** podem aumentar o tamanho do texto cifrado devido ao padding necessário, o que pode ser uma desvantagem em termos de eficiência de armazenamento.
 
-Em resumo, ao comparar **RC4** e **ChaCha20** com **AES-CTR** e **AES-CBC**, observamos que os modos de fluxo (**RC4**, **ChaCha20** e **AES-CTR**) são mais eficientes quando se fala no tamanho do texto cifrado, mantendo-o igual ao do texto original, enquanto modos de bloco como **AES-CBC** podem introduzir sobrecarga devido ao padding.
