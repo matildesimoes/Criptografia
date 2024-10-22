@@ -41,3 +41,4 @@ Explorando o IV fixo, o adversário pode distinguir entre duas encriptações di
 
 ### Q3
 
+
