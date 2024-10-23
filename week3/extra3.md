@@ -74,4 +74,14 @@ Explorando o IV fixo, o adversário pode distinguir entre duas encriptações di
 
 ### Q3
 
+### Q4
+
+#### P1
+
+Mesmo quando a mensagem já possui um tamanho múltiplo do tamanho do bloco **b**, é necessário adicionar padding no esquema **PKCS#7** para garantir que o recetor possa identificar e remover corretamente o padding durante a desencriptação. Se nenhum padding for adicionado a uma mensagem, em que o seu tamanho já é múltiplo do tamanho do bloco, o recetor não conseguiria distinguir se os últimos bytes são dados reais ou padding.
+
+No **PKCS#7**, é sempre adicionado um bloco de padding, no mínimo. Cada byte de padding contém o valor numérico igual ao número de bytes de padding adicionados. Dessa forma, durante a desencriptação, o recetor lê o valor do último byte para determinar quantos bytes de padding remover. Isso assegura que o padding seja tratado corretamente, independentemente do tamanho original da mensagem.
+
+#### P2
+
 
