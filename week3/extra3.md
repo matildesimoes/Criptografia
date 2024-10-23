@@ -84,7 +84,17 @@ Isto viola a garantia de segurança IND-CPA do esquema criptográfico, já que o
 
 ## Q3: *Predictable Initialization Vectors*
 
+...TODO
 
+Tal como provado, é possível obter o valor do IV a partir do *nonce*.
+
+Assim, antes do desafio, o adversário envia uma mensagem 0<sup>n</sup>, que é cifrada com o IV<sup>A</sup>.
+
+No desafio, o adversário envia:
+1. m<sub>0</sub> = IV<sub>0</sub> XOR IV<sub>A</sub>, que resulta na mensagem cifrada c<sub>0</sub> = E(k, IV<sub>0</sub> XOR IV<sub>0</sub> XOR IV<sub>A</sub>) = E(k, IV<sub>A</sub>)
+2. m<sub>1</sub>, diferente de m<sub>0</sub>
+
+Se a resposta do oráculo for igual a E(k, IV<sub>A</sub>), obtido antes da experiência, o adversário consegue adivinhar com certeza que *b = 0*. Se a resposta for diferente, o adversário adivinha com certeza que *b = 1*.
 
 ## Q4: *Padding Attacks*
 
@@ -100,24 +110,30 @@ Se no processo de desencriptação se tiver sido alterado um byte de padding, o 
 
 Para além disto, é possível, a partir dos erros de padding descobrir a mensagem original.
 
-1. **Alterar o penúltimo bloco da mensagem**
+**Extrair informação quando não há erro de *padding***
 
-Ao alterar o último byte do penúltimo bloco da mensagem cifrada, a desencriptação vai afetar o último bloco. Esta alteração pode resultar em erros de padding ou não. Se resultar, não se conclui nada o atacante deve voltar a modificar o byte para outro valor. Se não resultar, isto é, se não existirem erros de padding, o atacante consegue extrair alguma informação da mensagem.
+No modo CBC, cada mensagem original obtém-se fazendo a operação XOR entre o bloco anterior da mensagem cifrada e a desencriptação do bloco correspondente da mensagem cifrada.
 
-2. **Extrair informação quando não há erro de *padding***
+1. Tendo em conta o *byte* que se quer recuperar, define-se o *padding* esperado: para o *byte* índice-*i* a contar do final do bloco, define-se *padding* com valor *i*.
+2. Altera-se, sistematicamente, o *byte* correspondente do bloco anterior e todos os seguintes dentro desse bloco para um valor de `0x00` até `0xFF`. Cada tentativa é enviada para o oráculo de desencriptação.
+3. Se essa tentativa de desencriptação retornar *padding* válido, obtém-se:
 
-No modo CBC, o último bloco da mensagem original obtem-se fazendo a operação XOR entre o punúltimo bloco da mensagem cifrada e a desencriptação do último bloco da mensagem cifrada. Por isso, uma alteração no penúltimo bloco da mensagem cifrada reflete-se no padding, que está no último bloco. 
+    **D(k, C<sub>n</sub>[i]) = C<sub>n-1</sub>[i] XOR P<sub>n</sub>[i]**
 
-D(k, C<sub>n</sub>[16]) = C<sub>n-1</sub>[16] XOR P<sub>n</sub>[16]
+    - **D(k, C<sub>n</sub>[i]):** parte da mensagem original que se pretende obter
+    - **C<sub>n-1</sub>[i]:** alteração enviada ao oráculo de encriptação
+    - **P<sub>n</sub>[i]:** *padding* foi obtido pelo oráculo de encriptação 
 
-- D(k, C<sub>n</sub>[16]): parte da mensagem original que se pertende obter
-- C<sub>n-1</sub>[16]: alteração enviada ao oráculo de encriptação
-- P<sub>n</sub>[16]: padding foi obtido pelo oráculo de encriptação 
+Assim, é possível obter **D(k, C<sub>n</sub>[i])**.
 
-Assim, é possível obter D(k, C<sub>n</sub>[16]).
+**Exemplo**
 
-3. **Obter a mensagem original**
+1. Para recuperar o último *byte* do bloco *n* (P<sub>n</sub>[16]), define-se o *padding* esperado como `0x01`.
+2. Altera-se C<sub>n</sub>[16], sistematicamente, para um valor entre `0x00` e `0xFF` até se obter *padding* válido.
+3. Quando se obtiver *padding* válido, deduz-se: 
 
+    **D(k, C<sub>n</sub>[16]) = C<sub>n-1</sub>[16] XOR P<sub>n</sub>[16] = C<sub>n-1</sub>[16] XOR `0x01`**
 
+Este processo é repetido iterativamente para cada *byte* do bloco *n*, ajustando o *padding* conforme necessário e manipulando os *bytes* correspondentes de C<sub>n - 1</sub>.
 
-
+Depois de recuperar o bloco *n*, aplica-se o mesmo método para o bloco *n - 1* e assim sucessivamente, até recuperar todo a mensagem original.
