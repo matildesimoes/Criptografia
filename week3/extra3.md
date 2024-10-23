@@ -85,3 +85,4 @@ Isto viola a garantia de segurança IND-CPA do esquema criptográfico, já que o
 ## Q3: *Predictable Initialization Vectors*
 
 
+
