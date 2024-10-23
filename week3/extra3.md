@@ -85,14 +85,39 @@ Isto viola a garantia de segurança IND-CPA do esquema criptográfico, já que o
 ## Q3: *Predictable Initialization Vectors*
 
 
-### Q4
 
-#### P1
+## Q4: *Padding Attacks*
+
+### P1
 
 Mesmo quando a mensagem já possui um tamanho múltiplo do tamanho do bloco **b**, é necessário adicionar padding no esquema **PKCS#7** para garantir que o recetor possa identificar e remover corretamente o padding durante a desencriptação. Se nenhum padding for adicionado a uma mensagem, em que o seu tamanho já é múltiplo do tamanho do bloco, o recetor não conseguiria distinguir se os últimos bytes são dados reais ou padding.
 
 No **PKCS#7**, é sempre adicionado um bloco de padding, no mínimo. Cada byte de padding contém o valor numérico igual ao número de bytes de padding adicionados. Dessa forma, durante a desencriptação, o recetor lê o valor do último byte para determinar quantos bytes de padding remover. Isso assegura que o padding seja tratado corretamente, independentemente do tamanho original da mensagem.
 
-#### P2
+### P2
+
+Se no processo de desencriptação se tiver sido alterado um byte de padding, o oráculo de encriptação dará um erro. Assim, ao tenta forçar erros de padding, o atacante consegue descobrir quais são os bytes de padding e consequentemente o tamanho da mensagem. Para isso, basta começar do final da mensagem para o início a fazer alterações byte a byte até deixarem de resultar em erros de padding.
+
+Para além disto, é possível, a partir dos erros de padding descobrir a mensagem original.
+
+1. **Alterar o penúltimo bloco da mensagem**
+
+Ao alterar o último byte do penúltimo bloco da mensagem cifrada, a desencriptação vai afetar o último bloco. Esta alteração pode resultar em erros de padding ou não. Se resultar, não se conclui nada o atacante deve voltar a modificar o byte para outro valor. Se não resultar, isto é, se não existirem erros de padding, o atacante consegue extrair alguma informação da mensagem.
+
+2. **Extrair informação quando não há erro de *padding***
+
+No modo CBC, o último bloco da mensagem original obtem-se fazendo a operação XOR entre o punúltimo bloco da mensagem cifrada e a desencriptação do último bloco da mensagem cifrada. Por isso, uma alteração no penúltimo bloco da mensagem cifrada reflete-se no padding, que está no último bloco. 
+
+D(k, C<sub>n</sub>[16]) = C<sub>n-1</sub>[16] XOR P<sub>n</sub>[16]
+
+- D(k, C<sub>n</sub>[16]): parte da mensagem original que se pertende obter
+- C<sub>n-1</sub>[16]: alteração enviada ao oráculo de encriptação
+- P<sub>n</sub>[16]: padding foi obtido pelo oráculo de encriptação 
+
+Assim, é possível obter D(k, C<sub>n</sub>[16]).
+
+3. **Obter a mensagem original**
+
+
 
 
