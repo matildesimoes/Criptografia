@@ -30,25 +30,21 @@ Tendo em conta que C é o conjunto todas as *bit strings* de comprimento 8, ou s
 
 Contudo, S é o conjunto dos valores inteiros de 0 até 250, o que implica que os valores que sejam gerados por D e sejam superiores a 250 (de 251 até 255) são descartados, por não fazerem parte desse conjunto.
 
-Portanto, a probabilidade de cada valor em S ser gerado por D é 1/256, sendo 5/256 a probabilidade de nenhum valor em S ser gerado por D.
-
-Se os valores descartados gerados por D levarem à repetição do processo de geração até ao resultado estar entre 0 e 250, então a probabilidade de cada valor em S ser gerado por D é 1/251.
+Como os valores descartados gerados por D levam à repetição do processo de geração até ao resultado estar entre 0 e 250, então a probabilidade de cada valor em S ser gerado por D é 1/251.
 
 ### Considere-se que o conjunto C é o conjunto de todas as *bit strings* de comprimento 64.
 
 2<sup>64</sup> mod 2<sup>8</sup> = 0 (são potências de base 2 e, por isso, divisíveis), o que significa que, como anteriormente, qualquer valor inteiro tem a mesma probabilidade de ser produzido por D, sendo que os valores superiores a 250 são descartados, por não fazerem parte do conjunto S.
 
-Assim, a probabilidade de cada valor em S ser gerado por D é 1/256, sendo 5/256 a probabilidade de nenhum valor em S ser gerado por D.
-
-Tal como anteriormente, se os valores descartados gerados por D implicarem a repetição do processo de geração até ao resultado estar entre 0 e 250, então a probabilidade de cada valor em S ser gerado por D é 1/251.
+Tal como anteriormente, como os valores descartados gerados por D implicam a repetição do processo de geração até ao resultado estar entre 0 e 250, então a probabilidade de cada valor em S ser gerado por D é 1/251.
 
 ### Estas distribuições são uniformes?
 
-Estas distribuições são uniformes, porque a probabilidade de cada número do ser gerado é a mesma.
+Estas distribuições são uniformes, porque a probabilidade de cada número ser gerado é a mesma.
 
 ## 3
 
-O código utilizado para computar a entropia das distruibições é o seguinte.
+O código utilizado para computar a entropia das distribuições é o seguinte.
 
 ```python	
 def compute_entropy(prob_dict):
