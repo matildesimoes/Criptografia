@@ -90,8 +90,8 @@ Tal como provado, é possível obter o valor do IV a partir do *nonce*.
 
 Assim, antes do desafio, o adversário envia uma mensagem 0<sup>n</sup>, que é cifrada com o IV<sup>A</sup>.
 
-No desafio, o adversário envia:
-1. m<sub>0</sub> = IV<sub>0</sub> XOR IV<sub>A</sub>, que resulta na mensagem cifrada c<sub>0</sub> = E(k, IV<sub>0</sub> XOR IV<sub>0</sub> XOR IV<sub>A</sub>) = E(k, IV<sub>A</sub>)
+No desafio, o adversário envia duas mensagens com *nonce* E<sup>2</sup>(0), que resulta no IV E<sup>3</sup>(0):
+1. m<sub>0</sub> = 0, que resulta na mensagem cifrada c<sub>0</sub> = E(k, IV XOR 0) = E(k, IV) = E(k, E<sup>3</sup>(0)) = E<sup>4</sup>(0)
 2. m<sub>1</sub>, diferente de m<sub>0</sub>
 
 Se a resposta do oráculo for igual a E(k, IV<sub>A</sub>), obtido antes da experiência, o adversário consegue adivinhar com certeza que *b = 0*. Se a resposta for diferente, o adversário adivinha com certeza que *b = 1*.
