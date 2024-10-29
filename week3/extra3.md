@@ -113,6 +113,19 @@ Se a resposta do oráculo for igual a E<sup>4</sup>(0<sup>n</sup>), obtido antes
 
 ### P2
 
+O programa que imprime as mensagens/encriptações usadas neste ataque e mostra as correlações encontra-se no ficheiro `q3.py`.
+
+O programa simula uma experiência de segurança IND-CPA baseada em *nonce* deste esquema de cifra.
+Tal como é possível verificar, efetuando o ataque construído anteriormente, o atacante ganha com probabilidade 1.
+
+Se o *bit b* amostrado aleatoriamente for 0, então o atacante recebe uma mensagem encriptada igual ao último bloco do criptograma resultante da *query* anterior à experiência, pelo que consegue adivinhar que *b = 0* e, assim, ganhar a experiência.
+
+![m0](/week3/images/q3-1.png)
+
+Se o *bit b* amostrado aleatoriamente for 1, então o atacante recebe uma mensagem encriptada diferente do último bloco do criptograma resultante da *query* anterior à experiência, pelo que consegue adivinhar que *b = 1* e, assim, ganhar a experiência.
+
+![m1](/week3/images/q3-2.png)
+
 ## Q4: *Padding Attacks*
 
 ### P1
