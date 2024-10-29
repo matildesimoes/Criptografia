@@ -173,7 +173,7 @@ O comando `hexdump -n 32 -e '1/4 "%0X" 1 "\n"' /dev/urandom` extrai, formata e m
 
 Assim, o comando `hexdump -n 32 -e '1/4 "%0X" 1 "\n"' /dev/urandom`:
 1. Lê 32 *bytes* do ficheiro `/dev/urandom`, que os gera de forma pseudo-aleatória;
-2. Interpreta esses 32 *bytes* como 8 conjuntos/uidades de 4 *bytes*;
+2. Interpreta esses 32 *bytes* como 8 conjuntos/unidades de 4 *bytes*;
 3. Formata cada conjunto/unidade de 4 *bytes* como uma *string* hexadecimal de 8 caracteres maiúsculos;
 4. Mostra cada uma das 8 *strings* hexadecimais numa linha separada das restantes.
 
@@ -224,7 +224,7 @@ Assim, correu-se o comando `time openssl genrsa -aes256 -passout pass:password -
 | 8192 | 16.421 | 0.005 |
 | 16384 | 179.052 | 0.005 |
 
-Ao analisar os valores presentes na tabela, conclui-se que o tempo de execução para a geração da chave privada (Comando 1) aumenta - aparentemente de forma polinominal - com o aumento do tamanho da chave, mas o tempo de execução para a extração da chave pública a partir da chave privada (Comando 2) permanece constante, sendo independente do tamanho da chave.
+Ao analisar os valores presentes na tabela, conclui-se que o tempo de execução para a geração da chave privada (Comando 1) aumenta - aparentemente de forma polinomial - com o aumento do tamanho da chave, mas o tempo de execução para a extração da chave pública a partir da chave privada (Comando 2) permanece constante, sendo independente do tamanho da chave.
 
 O OpenSSL converte a palavra-passe numa chave criptográfica usando uma função de derivação de chave, de modo a garantir que a chave criptográfica resultante da palavra-passe pode ser utilizada para encriptação/embrulho da chave privada.
 
