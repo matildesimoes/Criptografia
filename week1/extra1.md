@@ -11,10 +11,10 @@ Um esquema de encriptação é considerado correto se permite recuperar a mensag
 3. **E(k, m) || 0:** basta remover o 0 concatenado no final para se obter E(k, m)
 4. **E(k, m) XOR 1<sup>n</sup>:** E(k, m) XOR 1<sup>n</sup> XOR 1<sup>n</sup> = E(k, m), porque x XOR x = 0
 5. **E(k, 0<sup>n</sup>):** é impossível voltar a obter a mensagem inicial, porque foi substituída por 0<sup>n</sup>
-6. **E(k, m) || m:** como |E(k, m)| = |m| = n e |E(k, m) || m| = 2n, basta dividir E(k, m) || m a meio, obtendo-se E(k, m) do lado esquerdo e m do lado direito
-7. **E(k, m) || E(k', m'):** como não há informação sobre o tamanho de m e m', é impossível saber onde dividir E(k, m) || E(k', m') para se voltar a obter as mensagens iniciais
+6. **E(k, m) || m:** como |E(k, m)| = |m| = n, pelo que |E(k, m) || m| = 2n, basta dividir E(k, m) || m a meio, obtendo-se E(k, m) do lado esquerdo e m do lado direito
+7. **E(k, m) || E(k', m'):** como |m| = |m'| = |E(k, m)| = |E(k', m')| = n, pelo que |E(k, m) || E(k', m')| = 2n, basta dividir |E(k, m) || E(k', m')| a meio, obtendo-se E(k, m) do lado esquerdo e E(k', m') do lado direito
 
-Os esquemas de encriptação corretos são: 1, 2, 3, 4 e 6.
+Os esquemas de encriptação corretos são: 1, 2, 3, 4, 6 e 7.
 
 ### Q2
 
@@ -32,13 +32,15 @@ Ora, considerando que o esquema de encriptação (E, D) é semanticamente seguro
 
 6.**E(k, m) || m:** não é seguro porque, apesar de a chave ser k e de ser derivado de E(k, m), como |E(k, m)| = |m| = n e |E(k, m) || m| = 2n, basta dividir E(k, m) || m a meio, obtendo-se E(k, m) do lado esquerdo e m do lado direito, pelo que um atacante consegue obter a mensagem sem precisar de utilizar a chave, contrariando o pressuposto de que o texto cifrado não revela nada sobre a mensagem original - revela toda a mensagem original
 
-Os esquemas de encriptação corretos e semanticamente seguros são: 1, 3 e 4.
+7.**E(k, m) || E(k', m'):** é seguro porque se limita encriptar duas mensagens (m e m') com um esquema de cifra seguro, utilizando chaves diferentes (k e k') para a encriptação de cada mensagem, pelo que é derivado de E(k, m) e o texto cifrado não revela nada sobre as mensagens originais 
+
+Os esquemas de encriptação corretos e semanticamente seguros são: 1, 3, 4 e 7.
 
 ### Q3
 
 2. **E(0<sup>n</sup>, m)** 
 
-O atacante sabe o esquema de encriptação que vai ser utilizado e envia duas mensagens de comprimento n. A partir desse momento, como sabe o esquema de encriptaçáo, o atacante fica a saber também que a chave utilizada pelo *challenger* será 0<sup>n</sup>, sendo n conhecido, porque foi definido pelo atacante. Assim, quando o atacante receber a mensagem cifrada c, conseguirá decifrá-la porque sabe a chave e o esquema de encriptaçao (E, D). Deste modo, o atacante consegue saber a mensagem que foi encriptada com probabilidade 1, quebrando o modelo de segurança.
+O atacante sabe o esquema de encriptação que vai ser utilizado e envia duas mensagens de comprimento n. A partir desse momento, como sabe o esquema de encriptação, o atacante fica a saber também que a chave utilizada pelo *challenger* será 0<sup>n</sup>, sendo n conhecido, porque foi definido pelo atacante. Assim, quando o atacante receber a mensagem cifrada c, conseguirá decifrá-la porque sabe a chave e o esquema de encriptação (E, D). Deste modo, o atacante consegue saber a mensagem que foi encriptada com probabilidade 1, quebrando o modelo de segurança.
 
 ## Q2: *Shifting the alphabet*
 
@@ -52,9 +54,9 @@ Como a chave é aleatoriamente amostrada (segue uma distribuição uniformemente
 
 Efetivamente, este facto verifica-se para qualquer tamanho de mensagem, porque uma mensagem de tamanho n é apenas uma concatenação de n mensagens de tamanho 1.
 
-Assim, observa-se que, sem conhecimento da chave, a mensagem cifrada c segue uma distribuição uniforme, pelo que não é possível o atacente prevê-la com probabilidade superior a 1/2.
+Assim, observa-se que, sem conhecimento da chave, a mensagem cifrada c segue uma distribuição uniforme, pelo que não é possível o atacante prevê-la com probabilidade superior a 1/2.
 
-Na verdade, como a distrubuição aleatória é uniforme, a probabilidade de o atacante adivinhar corretamente a mensagem (sem conhecimento da chave) é (1/26)<sup>n</sup>.
+Na verdade, como a distribuição aleatória é uniforme, a probabilidade de o atacante adivinhar corretamente a mensagem (sem conhecimento da chave) é (1/26)<sup>n</sup>.
 
 Por isso, está provado que o esquema de encriptação E é perfeitamente seguro.
 
@@ -62,7 +64,7 @@ Por isso, está provado que o esquema de encriptação E é perfeitamente seguro
 
 ### P1
 
-Pretende-se identificar as alterativas tais que "nenhuns dois participantes conseguem recuperar a mensagem, mas todos os três participantes conseguem recuperar a mensagem".
+Pretende-se identificar as alternativas tais que "nenhuns dois participantes conseguem recuperar a mensagem, mas todos os três participantes conseguem recuperar a mensagem".
 
 - P<sub>1</sub> e P<sub>2</sub> têm m<sub>1</sub>, m<sub>2</sub>, m<sub>3</sub>, m<sub>4</sub>, logo nunca conseguem recuperar a mensagem (falta m<sub>5</sub> e m<sub>6</sub>)
 
