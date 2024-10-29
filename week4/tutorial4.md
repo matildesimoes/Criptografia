@@ -265,7 +265,7 @@ Para demonstrar que o **ChaCha20** gera o mesmo **ciphertext** ao encriptar o me
 
    ![4](images/4.png)
 
-O **ChaCha20** é um algoritmo de *Stream Cipher* que gera um fluxo de bytes pseudoaleatórios a partir de uma chave secreta e um nonce (valor único). Este fluxo é então combinado com o texto original através da operação XOR, resultando no texto cifrado. O uso do nonce garante que a mesma chave possa ser utilizada para encriptar múltiplos textos, sem comprometer a segurança.
+O **ChaCha20** é um algoritmo de *Stream Cipher* que gera um fluxo de bytes pseudo-aleatórios a partir de uma chave secreta e um nonce (valor único). Este fluxo é então combinado com o texto original através da operação XOR, resultando no texto cifrado. O uso do nonce garante que a mesma chave possa ser utilizada para encriptar múltiplos textos, sem comprometer a segurança.
 
 É **fundamental nunca reutilizar o nonce (IV) com a mesma chave**. A reutilização do nonce pode comprometer a segurança do sistema, facilitando que um atacante identifique padrões ou, em casos extremos, tenha a possibilidade de recuperar o texto original.
 
@@ -291,4 +291,3 @@ O **ChaCha20** é um algoritmo de *Stream Cipher* que gera um fluxo de bytes pse
 Cifras **RC4**, **ChaCha20** e **AES-CTR** mantêm o tamanho do texto cifrado igual ao do texto original, proporcionando eficiência em termos de espaço e adequação para dados de tamanho variável.
 
 Cifras de bloco no modo **AES-CBC** podem aumentar o tamanho do texto cifrado devido ao padding necessário, o que pode ser uma desvantagem em termos de eficiência de armazenamento.
-

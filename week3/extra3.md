@@ -84,17 +84,34 @@ Isto viola a garantia de segurança IND-CPA do esquema criptográfico, já que o
 
 ## Q3: *Predictable Initialization Vectors*
 
-...TODO
+### P1
 
-Tal como provado, é possível obter o valor do IV a partir do *nonce*.
+Considere-se uma esquema de cifra que computa a encriptação da mensagem usando AES-CBC com um IV que é gerado aplicando a função de encriptação de blocos no *nonce*, isto é, IV = E(k, n).
 
-Assim, antes do desafio, o adversário envia uma mensagem 0<sup>n</sup>, que é cifrada com o IV<sup>A</sup>.
+Pretende-se construir um ataque contra a experiência de segurança IND-CPA baseada em *nonce* deste esquema de cifra.
 
-No desafio, o adversário envia duas mensagens com *nonce* E<sup>2</sup>(0), que resulta no IV E<sup>3</sup>(0):
-1. m<sub>0</sub> = 0, que resulta na mensagem cifrada c<sub>0</sub> = E(k, IV XOR 0) = E(k, IV) = E(k, E<sup>3</sup>(0)) = E<sup>4</sup>(0)
-2. m<sub>1</sub>, diferente de m<sub>0</sub>
+Assim, o adversário deve enviar, em cada momento, uma mensagem para ser encriptada e um *nonce* que, encriptado, será o IV a utilizar na encriptação da mensagem.
+Nem os *nonces* enviados nem as mensagens enviadas se podem repetir.
 
-Se a resposta do oráculo for igual a E(k, IV<sub>A</sub>), obtido antes da experiência, o adversário consegue adivinhar com certeza que *b = 0*. Se a resposta for diferente, o adversário adivinha com certeza que *b = 1*.
+Seja *n* o tamanho de cada bloco do esquema de cifra.
+
+Antes do desafio, o adversário envia para encriptação o *nonce* 0<sup>n</sup> e a mensagem 0<sup>3n</sup>, o que resulta nos blocos P<sub>0</sub> = P<sub>1</sub> = P<sub>2</sub> = 0<sup>n</sup>.
+Deste modo:
+1. IV = E(k, 0<sup>n</sup>) = E(0<sup>n</sup>)
+2. C<sub>0</sub> = E(k, IV XOR P<sub>0</sub>) = E(k, IV XOR 0<sup>n</sup>) = E(k, IV) = E(k, E(k, 0<sup>n</sup>)) = E<sup>2</sup>(0<sup>n</sup>)
+3. C<sub>1</sub> = E(k, C<sub>0</sub> XOR P<sub>1</sub>) = E(k, c<sub>0</sub> XOR 0<sup>n</sup>) = E(k, c<sub>0</sub>) = E(k, E<sup>2</sup>(0<sup>n</sup>)) = E<sup>3</sup>(0<sup>n</sup>)
+4. C<sub>2</sub> = E(k, C<sub>1</sub> XOR P<sub>2</sub>) = E(k, c<sub>1</sub> XOR 0<sup>n</sup>) = E(k, c<sub>1</sub>) = E(k, E<sup>3</sup>(0<sup>n</sup>)) = E<sup>4</sup>(0<sup>n</sup>).
+
+Com a resposta, o adversário fica a conhecer E<sup>2</sup>(0<sup>n</sup>), E<sup>3</sup>(0<sup>n</sup>) e E<sup>4</sup>(0<sup>n</sup>).
+
+No desafio, o adversário envia duas mensagens com *nonce* E<sup>2</sup>(0<sup>n</sup>), que resulta no IV E<sup>3</sup>(0<sup>n</sup>).
+Note-se que estes dois valores já são conhecidos do adversário, por terem sido obtidos anteriormente como resposta à encriptação.
+1. m<sub>0</sub> = 0<sup>n</sup>, que resulta na mensagem cifrada c<sub>0</sub> = E(k, IV XOR 0<sup>n</sup>) = E(k, IV) = E(k, E<sup>3</sup>(0<sup>n</sup>)) = E<sup>4</sup>(0<sup>n</sup>)
+2. m<sub>1</sub>, diferente de m<sub>0</sub>, que resulta na mensagem cifrada c<sub>1</sub>, diferente de c<sub>0</sub>, ou seja, diferente de E<sup>4</sup>(0<sup>n</sup>)
+
+Se a resposta do oráculo for igual a E<sup>4</sup>(0<sup>n</sup>), obtido antes da experiência e, por isso, conhecido, o adversário consegue adivinhar com certeza que *b = 0*. Se a resposta for diferente, o adversário adivinha com certeza que *b = 1*.
+
+### P2
 
 ## Q4: *Padding Attacks*
 
