@@ -37,4 +37,4 @@ def dec(c):
 		digest = hashes.Hash(hashes.SHA256())
 		digest.update(x.to_bytes(4, "big"))
 		k += digest.finalize()
-	return bytearray([a ^ b for a,b in zip(c, k[:len(m)])])
+	return bytearray([a ^ b for a,b in zip(c, k[:len(c)])])
