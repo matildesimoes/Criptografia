@@ -28,7 +28,7 @@ Para determinar que construções hash *H'* também são **resistentes a colisõ
 
 6. **H' = H(m[0...|m|-2])**
    - Faz hash de *m* após remover o último bit.
-   - Dois inputs diferentes que diferem apenas no último bit vão gerar hash completamente diferentes, logo é resistente a colisões.
+   - Dois inputs diferentes que diferem apenas no último bit podem gerar hash iguais, o que torna a procura de colisões muito mais fácil, logo não é resistente a colisões.
 
 7. **H' = H(m) || H(m XOR 1<sup>|m|</sup>)**
    - Concatena *H(m)* com *H(m XOR 1<sup>|m|</sup>)*.
@@ -38,9 +38,9 @@ Para determinar que construções hash *H'* também são **resistentes a colisõ
    - É sempre necessário computar *H(m XOR 1<sup>|m|</sup>)*, pois *m* não pode ser, simultaneamente, 0<sup>64</sup> e 1<sup>64</sup>.
    - Similar à alínea 7, depende da resistência a colisões de *H*, logo é resistente a colisões.
 
-**Construções Resistentes a Colisões**: 1, 2, 4, 6, 7, 8
+**Construções Resistentes a Colisões**: 1, 2, 4, 7, 8
 
-**Construções Não Resistentes a Colisões**: 3, 5
+**Construções Não Resistentes a Colisões**: 3, 5, 6
 
 ### Q2
 
