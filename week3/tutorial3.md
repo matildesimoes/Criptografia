@@ -132,18 +132,19 @@ Contudo, se não se souber que bloco é C<sub>m</sub>, isto é, se não se conhe
 
 ### 3.4
 
-Não, não é possível modificar um *byte* no meio de um ficheiro encriptado com CBC sem ter de o voltar a encriptar completamente.
-Isto é, é sempre necessário voltar a encriptar completamente o ficheiro, para permitir uma desencriptação correta.
+Sim, é possível modificar um *byte* no meio de um ficheiro encriptado com CBC sem ter de o voltar a encriptar completamente.
+Isto é, para permitir uma desencriptação correta, apenas é necessário voltar a encriptar os blocos a partir daquele a que pertence o *byte* modificado (inclusive).
 
 Seja C<sub>m</sub> o bloco ao qual pertence o *byte* modificado.
 
-Como o valor de P<sub>m</sub> depende de C<sub>m</sub> e de C<sub>m - 1</sub>, então, para obter o valor correto de P<sub>m</sub>, tendo alterado o valor de C<sub>m</sub>, seria necessário alterar também o valor de C<sub>m - 1</sub>.
-E assim sucessivamente, pelo que todos os blocos anteriores a C<sub>m</sub> são afetados, tendo de ser encriptados novamente.
+Nenhum dos blocos anteriores a C<sub>m</sub> depende de C<sub>m</sub>, pelo que uma alteração em C<sub>m</sub> não afeta nenhum dos blocos anteriores, não sendo, por isso, necessário voltar a encriptá-los.
+Efetivamente, uma alteração em C<sub>m</sub> não é visível até tentar desencriptar C<sub>m</sub>, pelo que a desencriptação dos blocos anteriores mantém-se inalterada e, por isso, correta.
 
 Como o valor de P<sub>m + 1</sub> depende de C<sub>m + 1</sub> e de C<sub>m</sub>, então, para manter o valor correto de P<sub>m + 1</sub>, tendo alterado o valor de C<sub>m</sub>, seria necessário alterar também o valor de C<sub>m + 1</sub>.
+Alterando o valor de C<sub>m + 1</sub>, pela razão anterior, seria necessário alterar o valor de C<sub>m + 2</sub> para obter o valor correto de P<sub>m + 2</sub>.
 E assim sucessivamente, pelo que todos os blocos posteriores a C<sub>m</sub> são afetados, tendo de ser encriptados novamente.
 
-Como tal, a modificação de C<sub>m</sub> obriga a encriptar novamente todos blocos para se conseguir desencriptar corretamente o ficheiro. 
+Como tal, a modificação de C<sub>m</sub> só obriga a encriptar novamente os blocos posteriores a P<sub>m</sub> (inclusive) para se conseguir desencriptar corretamente o ficheiro.
 
 ## 4
 
