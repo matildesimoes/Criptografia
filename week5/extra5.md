@@ -70,7 +70,22 @@ A eficácia do método Rho baseia-se no **teorema do ciclo de Pigeonhole** , que
 
 #### Implementação do código
 
-O código implementado encontra-se no ficheiro **rho_exercise.py** e abaixo podemos observar a sua execução.
+O código implementado encontra-se no ficheiro **rho_exercise.py** e abaixo podemos observar uma execução.
+
+![image](images/extra2.png)
+
+- Número Total de Valores de Hash: *N = 2<sup>8 x L</sup>*.
+  
+- Iterações Esperadas: É esperado encontrar uma colisão depois de realizar *$\sqrt{2^{8 \times L}}$* iterações. Se L aumentar, o número de iterações necessárias para encontrar uma colisão aumenta exponencialmente, tornando a hash maior e a criação de colisões mais difícil.
+  
+- Iterações Observadas: O número de iterações observadas está próximo da expectativa teórica (iterações esperadas). Variações são normais devido à natureza probabilística do algoritmo.
+
+   - Aproximadamente 2.094.156 iterações para *L=5*.
+  
+- Tempo Gasto: Aproximadamente 20,04 segundos. O tempo gasto é proporcional ao número de iterações realizadas, logo se existir um aumento do L, o número de ietrações aumenta e, consequentemente, o tempo gasto também.
+  
+  - Iterações por Segundo para *L=5*: *2.094.156 iterações / 20,04 segundos* = *104.500 iterações/segundo*.
+
 
 ### Q3
 
@@ -84,7 +99,7 @@ Assim, se o atacante conseguir 1009 chaves diferentes, vai-lhe permitir desencri
 
 #### 2
 
-Tendo feito vários pedidos anteriormente e sabendo as chaves, o atacante escolhe:
+Tendo feito vários pedidos anteriormente e sabendo as 1009 chaves (como explicado anteriormente), o atacante escolhe:
 
 - *m0* = 0<sup>n</sup>, em que n é o tamanho da mensagem;
 - *m1* alguma coisa diferente de 0<sup>n</sup>;
