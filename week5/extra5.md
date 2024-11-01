@@ -71,7 +71,7 @@ O método Rho baseia-se no ***Pigeonhole Principle*** - que afirma que, dada uma
 
 O código implementado encontra-se no ficheiro `rho_exercise.py` e abaixo observa-se uma execução.
 
-![2](images/q2.png)
+![q2](images/q2.png)
 
 - **Número Total de Valores de *Hash*:** *N = 2<sup>8 x L</sup>*.
   
@@ -160,4 +160,4 @@ Com base nestas operações, o atacante pode determinar corretamente que mensage
 
 O ficheiro `ciphesuite_fsr.py` foi estendido para incluir a exemplificação deste algoritmo de ataque a esta experiência em código, de maneira a demonstrar o exposto, apresentando-se abaixo um exemplo de execução.
 
-![2](/week5/images/q3.png)
+![q3](/week5/images/q3.png)

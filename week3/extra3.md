@@ -47,7 +47,7 @@ Antes do desafio da experiência, o adversário pode fazer e enviar *queries* ao
 
 No desafio da experiência, o adversário interage com o oráculo de encriptação enviando duas mensagens, *m0* e *m1*, com o mesmo comprimento.
 Estas mensagens são escolhidas cuidadosamente com base nas propriedades da encriptação do modo CBC e no facto de o IV ser fixo.
-O oráculo de encriptação retorna *C0 = Enc(k, m0)* ou *C1 = Enc(k, m1)*, com base no bit aleatório *b*.
+O oráculo de encriptação retorna *C0 = Enc(k, m0)* ou *C1 = Enc(k, m1)*, com base no *bit* aleatório *b*.
 
 Para montar um ataque bem-sucedido, o adversário explora o facto do IV ser sempre o mesmo.
 Assim, sabendo como o CBC funciona, conclui que, ao mandar uma mensagem *m* constituída por zeros, o primeiro bloco cifrado será a encriptação do IV, pois *E(IV + 0<sup>n</sup>) = E(IV)*.
@@ -61,7 +61,7 @@ Assumindo que o IV é fixo e sabendo a sua encriptação (obtida anteriormente),
 
 ### 3. Decisão de *b*
 
-O adversário envia *m0* e *m1* ao oráculo de encriptação, que retorna *C0 = Enc(k, m0)* ou *C1 = Enc(k, m1)*, com base no bit aleatório *b*.
+O adversário envia *m0* e *m1* ao oráculo de encriptação, que retorna *C0 = Enc(k, m0)* ou *C1 = Enc(k, m1)*, com base no *bit* aleatório *b*.
 
 - Se o oráculo de encriptação retornar *C0*, o primeiro bloco do texto cifrado será *E(IV + 0<sup>n</sup>) = E(IV)*.
 - Se o oráculo de encriptação retornar *C1*, o primeiro bloco do texto cifrado será *E(IV + 1<sup>n</sup>)*.
@@ -130,15 +130,21 @@ Se o *bit b* amostrado aleatoriamente for 1, então o atacante recebe uma mensag
 
 ### P1
 
-Mesmo quando a mensagem já possui um tamanho múltiplo do tamanho do bloco **b**, é necessário adicionar padding no esquema **PKCS#7** para garantir que o recetor possa identificar e remover corretamente o padding durante a desencriptação. Se nenhum padding for adicionado a uma mensagem, em que o seu tamanho já é múltiplo do tamanho do bloco, o recetor não conseguiria distinguir se os últimos bytes são dados reais ou padding.
+Mesmo quando a mensagem já possui um tamanho múltiplo do tamanho do bloco **b**, é necessário adicionar *padding* no esquema **PKCS#7** para garantir que o recetor possa identificar e remover corretamente o *padding* durante a desencriptação.
+Se nenhum *padding* for adicionado a uma mensagem, em que o seu tamanho já é múltiplo do tamanho do bloco, o recetor não conseguiria distinguir se os últimos *bytes* são dados reais ou *padding*.
 
-No **PKCS#7**, é sempre adicionado um bloco de padding, no mínimo. Cada byte de padding contém o valor numérico igual ao número de bytes de padding adicionados. Dessa forma, durante a desencriptação, o recetor lê o valor do último byte para determinar quantos bytes de padding remover. Isso assegura que o padding seja tratado corretamente, independentemente do tamanho original da mensagem.
+No **PKCS#7**, é sempre adicionado um *byte* de *padding*, no mínimo.
+Cada *byte* de *padding* contém o valor numérico igual ao número de *bytes* de *padding* adicionados.
+Dessa forma, durante a desencriptação, o recetor lê o valor do último *byte* para determinar quantos *bytes* de *padding* remover.
+Isso assegura que o *padding* seja tratado corretamente, independentemente do tamanho original da mensagem.
 
 ### P2
 
-Se no processo de desencriptação se tiver sido alterado um byte de padding, o oráculo de encriptação dará um erro. Assim, ao tenta forçar erros de padding, o atacante consegue descobrir quais são os bytes de padding e consequentemente o tamanho da mensagem. Para isso, basta começar do final da mensagem para o início a fazer alterações byte a byte até deixarem de resultar em erros de padding.
+Se, no processo de desencriptação, tiver sido alterado um *byte* de *padding*, o oráculo de encriptação dará um erro.
+Assim, ao tentar forçar erros de *padding*, o atacante consegue descobrir quais são os *bytes* de *padding* e, consequentemente, o tamanho da mensagem.
+Para isso, basta começar do final da mensagem para o início a fazer alterações *byte* a *byte*, até deixarem de resultar em erros de *padding*.
 
-Para além disto, é possível, a partir dos erros de padding descobrir a mensagem original.
+Para além disto, é possível descobrir a mensagem original a partir dos erros de *padding*.
 
 **Extrair informação quando não há erro de *padding***
 
@@ -152,18 +158,18 @@ No modo CBC, cada mensagem original obtém-se fazendo a operação XOR entre o b
 
     - **D(k, C<sub>n</sub>[i]):** parte da mensagem original que se pretende obter
     - **C<sub>n-1</sub>[i]:** alteração enviada ao oráculo de encriptação
-    - **P<sub>n</sub>[i]:** *padding* foi obtido pelo oráculo de encriptação 
+    - **P<sub>n</sub>[i]:** *padding* que foi obtido pelo oráculo de encriptação 
 
 Assim, é possível obter **D(k, C<sub>n</sub>[i])**.
 
 **Exemplo**
 
 1. Para recuperar o último *byte* do bloco *n* (P<sub>n</sub>[16]), define-se o *padding* esperado como `0x01`.
-2. Altera-se C<sub>n</sub>[16], sistematicamente, para um valor entre `0x00` e `0xFF` até se obter *padding* válido.
+2. Altera-se C<sub>n</sub>[16], sistematicamente, para um valor entre `0x00` e `0xFF`, até se obter *padding* válido.
 3. Quando se obtiver *padding* válido, deduz-se: 
 
     **D(k, C<sub>n</sub>[16]) = C<sub>n-1</sub>[16] XOR P<sub>n</sub>[16] = C<sub>n-1</sub>[16] XOR `0x01`**
 
 Este processo é repetido iterativamente para cada *byte* do bloco *n*, ajustando o *padding* conforme necessário e manipulando os *bytes* correspondentes de C<sub>n - 1</sub>.
 
-Depois de recuperar o bloco *n*, aplica-se o mesmo método para o bloco *n - 1* e assim sucessivamente, até recuperar todo a mensagem original.
+Depois de recuperar o bloco *n*, aplica-se o mesmo método para o bloco *n - 1* e assim sucessivamente, até recuperar toda a mensagem original.
