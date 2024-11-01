@@ -95,14 +95,14 @@ Se *L* aumentar, tornando a *hash* maior e dificultando a procura por colisões,
 
 ## Q3: *Weak ciphers*
 
+### 1
+
 A cifra por fluxo implementada no ficheiro `ciphersuite_fsr.py` utiliza um polinómio de grau 5 (x<sup>5</sup> + x<sup>4</sup> + 1) como LFSR, módulo 1009.
 
-O processo de encriptação consiste em, dado um estado inicial aleatório, gerar uma chave que corresponde à concatenação sucessiva do *output* da aplicação da função de *hash* SHA256 ao *output* LFSR.
+O processo de encriptação consiste em, dado um estado inicial aleatório, gerar uma chave que corresponde à concatenação sucessiva do *output* da aplicação da função de *hash* SHA256 ao *output* do LFSR.
 Depois, é efetuada a operação XOR da chave com a mensagem, resultando no texto cifrado.
 
 O processo de desencriptação é o simétrico do processo de encriptação.
-
-### 1
 
 O polinómio x<sup>5</sup> + x<sup>4</sup> + 1 não é irredutível, pelo que não é primitivo.
 
