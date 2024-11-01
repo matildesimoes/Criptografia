@@ -93,19 +93,18 @@ O código implementado encontra-se no ficheiro **rho_exercise.py** e abaixo pode
 
 A função *gen* gera um *estado inicial* *x* que é um número aleatório entre 0 e 1008, pois o LSFR só tem 1009 estados diferentes possíveis. Esse *x* vai ser usado para gerar a chave usada para encriptar as mensagens. Assim, no máximo, são geradas 1009 chaves diferentes.
 
-Se o atacante mandar para o oráculo de encriptação uma mensagem 0<sup>n</sup>, em que n é o tamanho da mensagem, o atacante vai receber como mensagem encriptada a chave utilizada, pois a encriptação é a operação XOR entre os bits da mensagem e da chave.
+Se o atacante mandar para o oráculo de encriptação uma mensagem qualquer, o atacante vai receber essa mesma mensagem encriptada. A encriptação é a operação XOR entre os bits da mensagem e da chave.
 
-Assim, se o atacante conseguir 1009 chaves diferentes, vai-lhe permitir desencriptar/conhecer a mensagem enviada na experiência.
+Assim, se o atacante mandar 1009 mensagens, vai conseguir 1009 chaves diferentes, permitindo-lhe desencriptar/conhecer a mensagem enviada na experiência, pois **Key = mensagem XOR mensagem encriptada**.
 
 #### 2
 
-Tendo feito vários pedidos anteriormente e sabendo as 1009 chaves (como explicado anteriormente), o atacante escolhe:
+Para o ataque ser bem sucessido, é necessário fazer os seguintes passos:
 
-- *m0* = 0<sup>n</sup>, em que n é o tamanho da mensagem;
-- *m1* alguma coisa diferente de 0<sup>n</sup>;
+- Pedir a mensagem encriptada de 1009 mensagens diferentes e obter 1009 chaves, fazendo a operação **Key = mensagem XOR mensagem encriptada**.
 
-O atacante envia ao oráculo para encriptar uma das duas mensagens acima. O oráculo escolhe aleatoriamente entre *m0* e *m1* e retorna essa mensagem encriptada.
+- Enviar duas mensagem de 32 bytes *m0* e *m1* ao oráculo para encriptar e receber uma delas encriptada *c<sub>b</sub>*.
 
-Se o texto encriptado recebido for igual a uma da chaves que possui, então a mensagem enviada foi *m0*. Caso contrário, a mensagem enviada foi *m1*.
+- Adivinhar b, fazendo a operação *c<sub>b</sub> XOR Key* com as chaves obtidas anteriormente. Se o resultado for igual a *m<sub>b</sub>*, então adivinha-se corretamente o bit b.
 
-Com base nesta comparação, o atacante pode determinar corretamente que mensagem foi encriptada, aumentando a probabilidade de acertar para 100% em vez de apenas 50% (acertar aleatoriamente).
+Com base nestas operações, o atacante pode determinar corretamente que mensagem foi encriptada, aumentando a probabilidade de acertar para 100% em vez de apenas 50% (acertar aleatoriamente).
