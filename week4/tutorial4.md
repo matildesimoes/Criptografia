@@ -42,7 +42,7 @@ Output = 1
 R7 = 010
 ```
 
-O LFSR iniciado com *R0 = 010* apresenta um período de 7, o que significa que a sequência gerada se repete após 7 *shifts*. Este valor coincide com o período máximo possível para um LFSR de 3 bits, que é *2<sup>3</sup> - 1 = 7*.
+O LFSR iniciado com *R0 = 010* apresenta um período de 7, o que significa que a sequência gerada repete-se após 7 *shifts*. Este valor coincide com o período máximo possível para um LFSR de 3 bits, que é *2<sup>3</sup> - 1 = 7*.
 
 Como o LFSR atinge esse período máximo, podemos concluir com elevada confiança que o polinómio *x<sup>3</sup> + x + 1* é primitivo. Isto implica que gera a sequência máxima possível para *n = 3*, independentemente do valor inicial no ciclo. Ou seja, qualquer valor de partida que pertença ao ciclo levará inevitavelmente à mesma sequência periódica, demonstrando que o polinómio gera todas as combinações possíveis de estados antes de se repetir.
 
@@ -112,7 +112,7 @@ Output = 0
 R15 = 0100
 ```
 
-O LFSR iniciado com *R0 = 0100* apresenta um período de 15, o que significa que a sequência gerada se repete após 15 *shifts*. Este valor coincide com o período máximo possível para um LFSR de 4 bits, que é *2<sup>4</sup> - 1 = 15*.
+O LFSR iniciado com *R0 = 0100* apresenta um período de 15, o que significa que a sequência gerada repete-se após 15 *shifts*. Este valor coincide com o período máximo possível para um LFSR de 4 bits, que é *2<sup>4</sup> - 1 = 15*.
 
 Como o LFSR atinge esse período máximo, podemos concluir com elevada confiança que o polinómio *x<sup>4</sup> + x + 1* é primitivo. Isto implica que gera a sequência máxima possível para *n = 4*, independentemente do valor inicial no ciclo. Ou seja, qualquer valor de partida que pertença ao ciclo levará inevitavelmente à mesma sequência periódica, demonstrando que o polinómio gera todas as combinações possíveis de estados antes de se repetir.
 
@@ -150,7 +150,7 @@ Output = 1
 R7 = 0110
 ```
 
-O LFSR iniciado com *R0 = 0110* apresenta um período de 7, o que significa que a sequência gerada se repete após 7 *shifts*. Este valor não coincide com o período máximo possível para um LFSR de 4 bits, que é *2<sup>4</sup> - 1 = 15*.
+O LFSR iniciado com *R0 = 0110* apresenta um período de 7, o que significa que a sequência gerada repete-se após 7 *shifts*. Este valor não coincide com o período máximo possível para um LFSR de 4 bits, que é *2<sup>4</sup> - 1 = 15*.
 
 Como o LFSR não atinge o período máximo, podemos concluir que o polinómio *x<sup>4</sup> + x<sup>3</sup> + x<sup>2</sup> + 1* não é primitivo. Isto implica que a sequência gerada não é a máxima possível para *n = 4*, o que significa que o polinómio não gera todas as combinações possíveis de estados antes de se repetir.
 
