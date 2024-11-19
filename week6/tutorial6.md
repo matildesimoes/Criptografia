@@ -47,7 +47,7 @@ O algoritmo **Miller-Rabin** é poderoso para verificar se números grandes são
 
 O código está implementado no ficheiro **miller_rabin.py** e abaixo encontra-se um exemplo de utilização:
 
-![Miller-Rabin](miller_rabin_example.png)
+![Miller-Rabin](images/miller_rabin_example.png)
 
 
 
