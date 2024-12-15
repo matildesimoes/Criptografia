@@ -39,13 +39,53 @@ Assim, como a Alice e o Bob não concordam no mesmo segredo e ambos os segredos 
 
 ## Q2: *ECC*
 
+Considere-se a seguinte construção para um esquema de assinatura com curvas elípticas:
+
+- **Gerar a Chave Pública:** computar $pk_A \leftarrow sk_A \cdot G$, sendo $G$ um gerador
+- **Assinar:** computar $\sigma \leftarrow m - k \cdot sk_A \cdot G$, sendo $k$ um valor aleatório
+- **Verificar:** computar $m' = \sigma + k \cdot pk_A$ e aceitar se $m = m'$
+
 ### P1
 
+Pretende-se mostrar que este esquema funciona, isto é, que para mensagens corretamente assinadas, o algoritmo de verificação funciona corretamente.
 
+Seja $m$ uma mensagem corretamente assinada.
+
+Seja $m'$ a tentativa de verificação da mensagem $m$:
+$$m' = \sigma + k \cdot pk_A$$
+Como $\sigma \leftarrow m - k \cdot sk_A \cdot G$:
+$$m' = m - k \cdot sk_A \cdot G + k \cdot pk_A$$
+Como $pk_A \leftarrow sk_A \cdot G$:
+$$m' = m - k \cdot sk_A \cdot G + k \cdot sk_A \cdot G$$
+Como $k \cdot sk_A \cdot G - k \cdot sk_A \cdot G = 0$:
+$$m' = m$$
+
+Portanto, a verificação é bem-sucedida.
+
+Assim, está provado que este esquema funciona, isto é, que para mensagens corretamente assinadas, o algoritmo de verificação funciona corretamente.
 
 ### P2
 
+Pretende-se mostrar que este esquema é vulnerável, ao descrever uma técnica simples para forjar uma assinatura numa mensagem arbitrária, sem conhecimento da chave secreta $sk_A$.
 
+Seja $m$ uma mensagem arbitrária.
+
+Um atacante, conhecendo a chave pública da vítima ($pk_A$), pode computar o valor $\sigma \leftarrow m - k \cdot pk_A$ e enviá-lo como uma assinatura para a mensagem $m$.
+
+Efetivamente, ao verificar a assinatura $\sigma \leftarrow m - k \cdot pk_A$ para a mensagem $m$, obtém-se:
+$$m' = \sigma + k \cdot pk_A$$
+$$m' = m - k \cdot pk_A + k \cdot pk_A$$
+$$m' = m$$
+
+Portanto, a verificação é bem-sucedida.
+
+Assim, está provado que este esquema é vulnerável, porque o atacante conseguiu forjar uma assinatura válida para uma mensagem arbitrária, sem conhecimento da chave secreta $sk_A$.
+
+Efetivamente, a vulnerabilidade surge porque o processo de computar a assinatura $\sigma \leftarrow m - k \cdot sk_A \cdot G$ é equivalente a computar $\sigma \leftarrow m - k \cdot pk_A$, dado que $pk_A \leftarrow sk_A \cdot G$, pelo processo de geração da chave pública.
+
+Como tal, o valor $k \cdot sk_A \cdot G$ é igual a $k \cdot pk_A$, pelo que pode ser computado apenas com o conhecimento da chave pública $pk_A$, sem ser necessário o conhecimento da chave secreta $sk_A$.
+
+Deste modo, qualquer atacante consegue forjar assinaturas válidas sem o conhecimento da chave secreta $sk_A$, mas apenas com o conhecimento a chave pública $pk_A$, tornando este esquema vulnerável.
 
 ## Q3: *ElGamal*
 
