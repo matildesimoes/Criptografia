@@ -62,19 +62,19 @@ Portanto, R = 2P = (13, -47).
 
 O código está implementado no ficheiro **ex3_tutorial.py** e a imagem abaixo mostra a execução do código.
 
-![ex3](image1.png)
+![ex3](images/image1.png)
 
 ### 4
 
 O código está implementado no ficheiro **ex4_tutorial.py** e a imagem abaixo mostra a execução do código.
 
-![ex4](image2.png)
+![ex4](images/image2.png)
 
 ### 5
 
 O código para as 3 alíneas está implementado no ficheiro **ex5_tutorial.py**. Cada alínea está identificada com um comentário no código. A imagem abaixo mostra a execução do código.
 
-![ex5](image3.png)
+![ex5](images/image3.png)
 
 
 
