@@ -1,6 +1,6 @@
 import random
 
-def miller_rabin(n, m=10):
+def miller_rabin(n, m = 10):
     """
     Algoritmo Miller-Rabin
     n: número a ser testado
