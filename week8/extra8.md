@@ -67,3 +67,5 @@ Isto impede:
 - O segundo ataque descrito anteriormente, porque, mesmo que o atacante encontre uma *hash* $h$ tal que $h^eg \mod n$ seja outra *hash* cuja assinatura $S \equiv (h^eg)^d \equiv hg^d \pmod{n}$ seja conhecida, pelo que $S/h = hg^d / h = g^d$, o atacante não saberá a que mensagem corresponde a *hash* $g$, pelo que a assinatura $g^d$ torna-se inútil, por ser desconhecida a mensagem correspondente.
 
 A **resistência a colisões** impossibilita que um atacante consiga descobrir duas mensagens com a mesma *hash* e, consequentemente, com a mesma assinatura, impedindo forjas triviais.
+
+Para além disto, a **imprevisibilidade** das funções de *hash* também impede os ataques descritos anteriormente, ao impossibilitar a extração de alguma informação útil ao alterar a mensagem a forjar, por não existir nenhuma relação algébrica entre a *hash* $h \leftarrow H(M)$ e a mensagem correspondente $M$.
