@@ -89,14 +89,90 @@ Deste modo, qualquer atacante consegue forjar assinaturas válidas sem o conheci
 
 ## Q3: *ElGamal*
 
+Considere-se o esquema de encriptação com chave pública *ElGamal*, isto é:
+
+**Geração de Chaves:** $Gen()$
+- $x \leftarrow_\$ \{1, ..., (q - 1)\}$
+- $X \leftarrow g^x$
+- *Return* $(X, x)$
+
+**Encriptação:** $Enc(X, m)$
+- $y \leftarrow_\$ \{1, ..., (q - 1)\}$
+- $s \leftarrow X^y$
+- $Y \leftarrow g^y$
+- $c \leftarrow m \cdot s$
+- *Return* $(Y, c)$
+
+**Desencriptação:** $Dec(x, (Y, c))$
+- $s \leftarrow Y^x$
+- $m \leftarrow c \cdot s^{-1}$
+- *Return* $m$
+
+Considerem-se todas as operações no grupo $\mathbb{Z}_q$ e sejam:
+- $g$ um parâmetro público (gerador);
+- $s$ o segredo partilhado estabelecido;
+- $x$ a chave privada do recetor;
+- $X$ a chave pública do recetor;
+- $y$ um valor amostrado aleatoriamente pelo emissor a partir do conjunto $\mathbb{Z}_ q$.
+
 ### P1
 
+O esquema de encriptação *ElGamal* funciona através do estabelecimento de um segredo partilhado ($s$) que é utilizado para encriptar e desencriptar a mensagem, de forma semelhante a um *one-time pad*.
 
+A desencriptação funciona ao computar o produto do criptograma $c$ com o inverso multiplicativo do segredo partilhado $s$.
+
+Ora, como o criptograma $c$ corresponde ao produto da mensagem original $m$ com o segredo partilhado $s$, o produto de $s$ pelo seu inverso multiplicativo (no grupo $\mathbb{Z}_ q$) resulta no elemento neutro para a multiplicação (a identidade), pelo que se obtém a mensagem original.
+
+Assim, a prova de que a desencriptação recupera a mensagem original $m$ é a seguinte:
+
+$$Dec(x, (Y, c))$$
+$$m' \leftarrow c \cdot s^{-1}$$
+$$m' \leftarrow (m \cdot s) \cdot s^{-1}$$
+$$m' \leftarrow m \cdot s \cdot s^{-1}$$
+$$m' \leftarrow m$$
+
+Ou, equivalentemente:
+
+$$Dec(x, (Y, c))$$
+$$m' \leftarrow c \cdot s^{-1}$$
+$$m' \leftarrow (m \cdot s) \cdot (Y^x)^{-1}$$
+$$m' \leftarrow m \cdot X^y \cdot ((g^y)^x)^{-1}$$
+$$m' \leftarrow m \cdot (g^x)^y \cdot (g^{xy})^{-1}$$
+$$m' \leftarrow m \cdot g^{xy} \cdot g^{-xy}$$
+$$m' \leftarrow m$$
+
+Note-se que o inverso multiplicativo de $s$ (no grupo $\mathbb{Z}_ q$) pode ser computado de múltiplas formas, nomeadamente através da utilização do algoritmo de Euclides estendido.
+
+A desencriptação funciona porque o valor de $y$ só é computado/conhecido pelo emissor e o valor de $x$ só é computado/conhecido pelo recetor, mas, pelas propriedades da aritmética, $X^y = (g^x)^y = g^{xy} = g^{yx} = (g^y)^x = Y^x$, sendo os valores de $g$, $X$ e $Y$ públicos e conhecidos por ambas as partes.
 
 ### P2
 
+A dificuldade do logaritmo discreto garante confidencialidade porque, ainda que um atacante à escuta no canal de comunicação aberto/partilhado consiga intersetar $Y$ e $c$ e conheça $X$ (por ser a chave pública do recetor) e $g$ (por ser um parâmetro público), não consegue, em tempo útil/viável, obter a mensagem original $m$, admitindo que o problema do logaritmo discreto é computacionalmente difícil.
 
+Isto sucede porque:
+1. Mesmo que o atacante intersete $Y$ e conheça $g$, computar o valor de $y$ tal que $g^y \equiv Y \pmod{q}$ corresponde a resolver o problema do logaritmo discreto.
+2. Mesmo que o atacante conheça $X$ e conheça $g$, computar o valor de $x$ tal que $g^x \equiv X \pmod{q}$ corresponde a resolver o problema do logaritmo discreto.
+
+Como tal, a não ser que resolva o problema do logaritmo discreto, o atacante não consegue computar o valor de $y$ nem o valor de $x$.
+
+Sem o valor de $y$ e sem o valor de $x$, o atacante não consegue obter a mensagem original $m$ a partir do criptograma $c$, dado que não consegue computar o segredo partilhado $s$, necessário para a desencriptação.
+
+Efetivamente, se o atacante conseguisse obter o valor de $y$ e sendo $X$ público, portanto, conhecido, poderia calcular $X^y = (g^x)^y = g^{xy} = s$, pelo que, calculando trivialmente $s^{-1}$ e efetuando $m = c \cdot s^{-1}$, conseguiria obter a mensagem original, quebrando a confidencialidade da comunicação.
+
+Analogamente, se o atacante conseguisse obter o valor de $x$ e tendo intersetado $Y$, poderia calcular $Y^x = (g^y)^x = g^{yx} = g^{xy} = s$, pelo que, calculando trivialmente $s^{-1}$ e efetuando $m = c \cdot s^{-1}$, conseguiria obter a mensagem original, quebrando a confidencialidade da comunicação.
+
+Deste modo, a dificuldade do problema do logaritmo discreto garante a confidencialidade do esquema de encriptação *ElGamal*.
 
 ### P3
 
+Pretende-se mostrar que o esquema de encriptação *ElGamal* é maleável, considerando um adversário que pode pedir a encriptação da mensagem $m$, recebendo o criptograma $c$.
 
+1. O adversário pede a encriptação da mensagem $m$, obtendo o criptograma $c = m \cdot s$ e o valor de $Y$;
+2. O adversário computa $c' = \alpha c$, para um qualquer valor de $\alpha$;
+3. A desencriptação de $c'$ é $Dec(x, (Y, c')) = c' \cdot s^{-1} = \alpha c \cdot s^{-1} = \alpha (c \cdot s^{-1}) = \alpha Dec(x, (Y, c)) = \alpha m$.
+
+Deste modo, o adversário consegue obter uma desencriptação de $c'$ diretamente relacionada com a desencriptação de $c$, sendo $c' = \alpha c$.
+
+Como tal, sem pedir diretamente a desencriptação do criptograma $c = m \cdot s$ correspondente à mensagem original $m$, o adversário consegue pedir a desencriptação do criptograma $c' = \alpha c$ para obter $\alpha m$ e deduzir a mensagem original $m$, aproveitando a maleabilidade do esquema de encriptação *ElGamal*.
+
+Assim, está provado que o esquema de encriptação *ElGamal* é maleável.
