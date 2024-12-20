@@ -48,7 +48,7 @@ print("Os coeficientes do polinómio g:", coefficients_g)
 print("Partes g:", shares_g)
 print("-------------------------------------")
 
-# 3: Carcular z1 = x1 + y1, z2 = x2 + y2, z3 = x3 + y3
+# 3: Calcular z1 = x1 + y1, z2 = x2 + y2, z3 = x3 + y3
 z_shares = [(x[0], x[1] + y[1]) for x, y in zip(shares_f[:3], shares_g[:3])]
 print("Partes z (soma de f e g):", z_shares)
 
