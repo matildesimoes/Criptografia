@@ -29,7 +29,7 @@ Algumas razões possíveis para aplicar o processo de revogação de certificado
 
 ## 2
 
-No esquema de Pailier, considerem os seguintes dados:
+No esquema de Paillier, considerem os seguintes dados:
 - $n = 620496404349687915307910174617$
 - $c = 358624662650643040547102063483144791182626860568435345308004$
 
