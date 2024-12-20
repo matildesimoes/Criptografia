@@ -51,7 +51,7 @@ $\{x: x \in \mathbb{Z_{941}} \wedge x = log_{627}(608)\} = \{x: 627^x \equiv 608
 - $A = 974$
 - $b = 871$
 
-### Qual é o valor B que o Bob deve enviar para a Alice?
+### Qual é o valor $B$ que o Bob deve enviar para a Alice?
 
 $$B \equiv g^b \pmod{p}$$
 $$B \equiv 2^{871} \pmod{1373}$$
@@ -112,6 +112,6 @@ Efetivamente, a Eve conseguiria encontrar os números secretos através da aplic
 
 Como este problema não é tão difícil como o problema do logaritmo discreto, a Eve conseguiria encontrar os números secretos.
 
-Para além disto, considerando as dimensões/magnitudes e ordens de grandeza dos valores típicos para os parâmetros públicos do protocolo Diffie-Hellman, tenderá a ser muito mais fácil computar $x^g \mod{p}$ do que $g^x \mod{p}$, dado que, para o caso típico em que $x >> g$, $x^g << g^x$, o que diminui substancialmente o tempo de processamento computacional necessário.
+Para além disto, considerando as dimensões/magnitudes e ordens de grandeza dos valores típicos para os parâmetros públicos do protocolo Diffie-Hellman, tenderá a ser muito mais fácil computar $x^g \mod{p}$ do que $g^x \mod{p}$, dado que, para o caso típico em que $x >> g$, então $x^g << g^x$, o que diminui substancialmente o tempo de processamento computacional necessário.
 
 Em suma, este sistema não pode ser considerado seguro, porque não existe um método de estabelecimento da chave de forma segura.

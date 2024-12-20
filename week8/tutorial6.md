@@ -52,12 +52,12 @@ Não, não é seguro que a Alice envie uma mensagem cifrada contendo apenas o n�
 O problema está no facto de que o número de telemóvel é um valor relativamente pequeno e previsível, o que torna o espaço de mensagens possíveis bastante limitado.
 
 Um atacante pode explorar essa limitação realizando um ataque de força bruta ou um ataque de dicionário.
-Pode, assim, gerar uma lista de todos os possíveis números de telemóvel válidos (o que é viável, dado que números de telemóvel seguem formatos específicos e têm um comprimento limitado), cifrar cada um usando a chave pública do Bob e comparar o resultado com a mensagem.
+Pode, assim, gerar uma lista de todos os possíveis números de telemóvel válidos (o que é viável, dado que os números de telemóvel seguem formatos específicos e têm um comprimento limitado), cifrar cada um usando a chave pública do Bob e comparar o resultado com a mensagem.
 Quando encontrar uma correspondência, o atacante irá descobrir o número de telemóvel da Alice.
 
 ## 5
 
-O algoritmo **Miller-Rabin** é poderoso para verificar se números grandes são primos de forma eficiente e com alta confiança.
+O algoritmo de **Miller-Rabin** é poderoso para verificar se números grandes são primos de forma eficiente e com alta confiança.
 Embora seja probabilístico, a chance de um número composto ser identificado como primo pode tornar-se negligenciável ao aumentar o número de iterações. 
 
 O código está implementado no ficheiro `miller_rabin.py` e abaixo encontra-se um exemplo de execução.
