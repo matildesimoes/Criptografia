@@ -63,7 +63,7 @@ Como é possível verificar na imagem, o segredo obtido ao utilizar os pontos $z
 
 Isto ocorre devido à **propriedade de linearidade da interpolação de Lagrange**.
 Quando se geram os pontos $z_i$ como a soma das partes $x_i$ e $y_i$ provenientes dos polinómios $f(x)$ e $g(x)$, respetivamente, está essencialmente a criar-se um novo polinómio $z(x) = f(x) + g(x)$.
-Este polinómio resultante $z(x)$ preserva as propriedades dos polinómios $f(x)$ e $g(x)$, incluindo o valor no ponto $x = 0$.
+Este polinómio resultante $z(x)$ preserva as propriedades dos polinómios $f(x)$ e $g(x)$.
 
 Durante a reconstrução do segredo a partir de $z_1, z_2, z_3$, a interpolação de Lagrange reconstitui o polinómio $z(x)$.
 Assim, tem-se $z(0) = f(0) + g(0)$, em que $f(0)$ e $g(0)$ são os segredos originais, $100$ e $550$, respetivamente.
